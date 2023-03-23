@@ -1,5 +1,5 @@
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
-import 'package:ecomerce/modules/home/components/homeCard.dart';
+import 'package:ecomerce/modules/home/presenter/components/homeCard.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -43,12 +43,30 @@ class _HomeTelaState extends State<HomeTela> {
       body: Column(children: [
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
+          child: Column(
             children: [
+              _cards(),
+            ],
+          ),
+        )
+      ]),
+    );
+  }
+  _cards(){
+    return Row(
+      children: [
+           HomeCard(
+                  texto: MensagensConstantes.TODOS,
+                  icone: MdiIcons.bookmarkBox,
+                  funcao: () {}),
               HomeCard(
-                  texto: MensagensConstantes.SAPATOS, icone: MdiIcons.shoeSneaker, funcao: () {}),
+                  texto: MensagensConstantes.SAPATOS,
+                  icone: MdiIcons.shoeSneaker,
+                  funcao: () {}),
               HomeCard(
-                  texto: MensagensConstantes.CAMISAS, icone: MdiIcons.tshirtCrew, funcao: () {}),
+                  texto: MensagensConstantes.CAMISAS,
+                  icone: MdiIcons.tshirtCrew,
+                  funcao: () {}),
               HomeCard(
                   texto: MensagensConstantes.ACESSORIOS,
                   icone: MdiIcons.sunglasses,
@@ -57,10 +75,7 @@ class _HomeTelaState extends State<HomeTela> {
                   texto: MensagensConstantes.COMESTICOS,
                   icone: MdiIcons.lipstick,
                   funcao: () {}),
-            ],
-          ),
-        )
-      ]),
+      ],
     );
   }
 }
