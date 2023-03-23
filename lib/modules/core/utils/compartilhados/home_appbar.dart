@@ -1,4 +1,4 @@
-import 'package:ecomerce/modules/home/home_tela.dart';
+import 'package:ecomerce/modules/home/presenter/home_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/usuario_tela.dart/usuario_tela.dart';
 import 'package:ecomerce/modules/vendas/presenter/carrinho_tela.dart';
 import 'package:flutter/material.dart';
