@@ -22,7 +22,7 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
           )),
         ),
         bottom: PreferredSize(
-            preferredSize: const Size(30, 30), child: Container()),
+            preferredSize: const Size(15, 15), child: Container()),
        
         flexibleSpace: Container(
           decoration: const BoxDecoration(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 final ThemeData temaClaro = ThemeData(
   appBarTheme: const AppBarTheme(
-    color: Color(0xffca485c),
+    color: Colors.orange,
   ),
   bottomSheetTheme: const BottomSheetThemeData(backgroundColor: Colors.white),
 

@@ -55,8 +55,7 @@ class BemVindoTela extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const HomeAppBar()));
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => const HomeAppBar()));
                 },
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.white),

@@ -10,6 +10,8 @@ class MensagensConstantes {
   static const String COMESTICOS = "Cosméticos";
   static const String HOME = "Home";
   static const String TODOS = "Todos";
+  static const String TODOS_PRODUTOS = "Todos Produtos";
+  static const String SEM_PRODUTOS = "Sem Produtos";
 
 
 }

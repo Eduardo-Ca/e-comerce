@@ -13,7 +13,7 @@ class Products extends Equatable {
   String? brand;
   String? category;
   String? thumbnail;
-  List<String>? images;
+  List<dynamic>? images;
 
   Products({
     this.id = 0,

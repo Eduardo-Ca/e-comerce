@@ -29,19 +29,6 @@ class _HomeAppBarState extends State<HomeAppBar> {
         bucket: bucket,
         child: telaAtual,
       ),
-//!=========== botâo flutuante do meio =================
-
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.home),
-        onPressed: () {
-          setState(() {
-            telaAtual = const HomeTela();
-          tabAtual = 0;
-          });
-          
-        },
-      ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
           shape: const CircularNotchedRectangle(),
@@ -49,82 +36,83 @@ class _HomeAppBarState extends State<HomeAppBar> {
           child: SizedBox(
             height: 60,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-//!============== icones da esquerda ==============
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      width: 35,
-                    ),
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          telaAtual = const CarrinhoTela();
-                          tabAtual = 2;
-                        });
-                      },
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.shopping_cart,
-                              color: tabAtual == 2
-                                  ? Colors.orangeAccent
-                                  : Colors.grey,
-                            ),
-                            Text(
-                              "Carrinho",
-                              style: TextStyle(
-                                  color: tabAtual == 2
-                                      ? Colors.orangeAccent
-                                      : Colors.grey),
-                            ),
-                          ]),
-                    ),
-                  ],
-                ),
-
-//!============== icones da direita ============
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MaterialButton(
-                      minWidth: 40,
-                      onPressed: () {
-                        setState(() {
-                          telaAtual = const UsuarioTela();
-                          tabAtual = 1;
-                        });
-                      },
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.person,
-                              color: tabAtual == 1
-                                  ? Colors.orangeAccent
-                                  : Colors.grey,
-                            ),
-                            Text(
-                              "Usuário",
-                              style: TextStyle(
-                                  color: tabAtual == 1
-                                      ? Colors.orangeAccent
-                                      : Colors.grey),
-                            ),
-                          ]),
-                    ),
-                    const SizedBox(
-                      width: 35,
-                    ),
-                  ],
-                ),
+                botaoCarrinho(),
+                botaoHome(),
+                botaoUsuario()
               ],
             ),
           )),
+    );
+  }
+
+  botaoHome() {
+    return MaterialButton(
+      minWidth: 40,
+      onPressed: () {
+        setState(() {
+          telaAtual = const HomeTela();
+          tabAtual = 0;
+        });
+      },
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Icon(
+          Icons.home,
+          color: tabAtual == 0 ? Colors.orangeAccent : Colors.grey,
+        ),
+        Text(
+          "Home",
+          style: TextStyle(
+              color: tabAtual == 0 ? Colors.orangeAccent : Colors.grey),
+        ),
+      ]),
+    );
+  }
+
+  botaoUsuario() {
+    return MaterialButton(
+      minWidth: 40,
+      onPressed: () {
+        setState(() {
+          telaAtual = const UsuarioTela();
+          tabAtual = 1;
+        });
+      },
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Icon(
+          Icons.person,
+          color: tabAtual == 1 ? Colors.orangeAccent : Colors.grey,
+        ),
+        Text(
+          "Usuário",
+          style: TextStyle(
+            color: tabAtual == 1 ? Colors.orangeAccent : Colors.grey),
+        ),
+      ]),
+    );
+  }
+
+  botaoCarrinho() {
+    return MaterialButton(
+      minWidth: 40,
+      onPressed: () {
+        setState(() {
+          telaAtual = const CarrinhoTela();
+          tabAtual = 2;
+        });
+      },
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Icon(
+          Icons.shopping_cart,
+          color: tabAtual == 2 ? Colors.orangeAccent : Colors.grey,
+        ),
+        Text(
+          "Carrinho",
+          style: TextStyle(
+            color: tabAtual == 2 ? Colors.orangeAccent : Colors.grey),
+        ),
+      ]),
     );
   }
 }

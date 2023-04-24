@@ -15,7 +15,7 @@ class Request {
 
 class Endpoints {
   //GET
-  static const String FICHA_PEDIDOS = 'api/ficha';
+  static const String GET_TODOS_PRODUTOS = 'products';
 
 
   //POST

@@ -20,9 +20,7 @@ class RequestUtil {
 
   // 1- criação do objeto dio
   _criarObjDio() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String urlBase =
-        "https://dummyjson.com/";
+    String urlBase = "https://dummyjson.com/";
 
     dio = Dio(BaseOptions(
         connectTimeout: 50000,

@@ -21,7 +21,7 @@ class _HomeCardState extends State<HomeCard> {
       padding: const EdgeInsets.only(top: 16.0, left: 10),
       child: SizedBox(
         width: 140,
-        height: 140,
+        height: 110,
         child: GestureDetector(
           onTap: widget.funcao,
           child: Card(
@@ -37,7 +37,7 @@ class _HomeCardState extends State<HomeCard> {
                   size: 50,
                 ),
                 Text(widget.texto,
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold))
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold))
               ],
             ),
           ),

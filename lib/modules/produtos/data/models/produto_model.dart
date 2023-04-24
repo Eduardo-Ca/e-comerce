@@ -14,7 +14,7 @@ class ProductsModel extends Products {
     String? brand,
     String? category,
     String? thumbnail,
-    List<String>? images,
+    List<dynamic>? images,
   }) : super(
     id: id,
     brand: brand,
@@ -25,6 +25,8 @@ class ProductsModel extends Products {
     rating: rating,
     stock: stock,
     title:title,
+    thumbnail: thumbnail,
+    images: images,
   );
 
   
@@ -51,12 +53,12 @@ class ProductsModel extends Products {
       description: map['description'] != null ? map['description'] as String : null,
       price: map['price'] != null ? map['price'] as int : null,
       discountPercentage: map['discountPercentage'] != null ? map['discountPercentage'] as double : null,
-      rating: map['rating'] != null ? map['rating'] as double : null,
+      rating: map['rating'].toDouble() != null ? map['rating'].toDouble() as double : null,
       stock: map['stock'] != null ? map['stock'] as int : null,
       brand: map['brand'] != null ? map['brand'] as String : null,
       category: map['category'] != null ? map['category'] as String : null,
       thumbnail: map['thumbnail'] != null ? map['thumbnail'] as String : null,
-      images: map['images'] != null ? List<String>.from((map['images'] as List<String>)):null
+      images: map['images'] != null ? map['images'] as List<dynamic> : null
     );
   }
 
