@@ -1,0 +1,49 @@
+import 'package:ecomerce/modules/produtos/data/models/produto_model.dart';
+import 'package:ecomerce/modules/vendas/domain/entities/venda_entity.dart';
+
+class VendaModel extends Venda {
+  VendaModel({
+    required int id,
+    required List<ProductsModel> produtos,
+    required int total,
+    required int discountedTotal,
+    required int userId,
+    required int totalProducts,
+    required int totalQuantity,
+  }) : super(
+    id: id,
+    produtos:produtos,
+    total:total,
+    discountedTotal:discountedTotal,
+    userId:userId,
+    totalProducts:totalProducts,
+    totalQuantity:totalQuantity,
+  );
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'produtos': produtos.map((x) => x.toJson()).toList(),
+      'total': total,
+      'discountedTotal': discountedTotal,
+      'userId': userId,
+      'totalProducts': totalProducts,
+      'totalQuantity': totalQuantity,
+    };
+  }
+
+  factory VendaModel.fromJson(Map<String, dynamic> map) {
+    return VendaModel(
+      id: map['id'] as int,
+      produtos: List<ProductsModel>.from((map['produtos'] as List<int>).map<ProductsModel>((x) => ProductsModel.fromJson(x as Map<String,dynamic>),),),
+      total: map['total'] as int,
+      discountedTotal: map['discountedTotal'] as int,
+      userId: map['userId'] as int,
+      totalProducts: map['totalProducts'] as int,
+      totalQuantity: map['totalQuantity'] as int,
+    );
+  }
+  
+  
+
+}

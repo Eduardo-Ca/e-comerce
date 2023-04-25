@@ -1,4 +1,8 @@
+import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
+import 'package:ecomerce/modules/vendas/domain/usecases/venda_usecase.dart';
+import 'package:ecomerce/stores/venda_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CarrinhoTela extends StatefulWidget {
   const CarrinhoTela({super.key});
@@ -8,6 +12,17 @@ class CarrinhoTela extends StatefulWidget {
 }
 
 class _CarrinhoTelaState extends State<CarrinhoTela> {
+
+  late UseCasesVenda useCasesVenda;
+  late VendaStore store;
+
+  @override
+  void didChangeDependencies() {
+    store = Provider.of<VendaStore>(context);
+    store.obterCarrinho();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -17,7 +32,7 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
           padding: EdgeInsets.only(top: 28.0),
           child: Center(
               child: Text(
-            "Carrinho",
+            MensagensConstantes.CARRINHO,
             style: TextStyle(color: Colors.white, fontSize: 26),
           )),
         ),
@@ -38,6 +53,7 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
           ),
         ),
       ),
+      body: Text("${store.venda.produtos}"),
     );
   }
 }

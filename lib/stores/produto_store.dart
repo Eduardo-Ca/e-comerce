@@ -20,6 +20,9 @@ abstract class _ProdutoStore with Store {
     );
   }
 
+   @observable
+  int quantidade = 1;
+
   @observable
   ObservableList<ProductsModel> listaProdutos = ObservableList<ProductsModel>();
 

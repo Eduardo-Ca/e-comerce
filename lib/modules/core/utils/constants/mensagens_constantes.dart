@@ -12,6 +12,8 @@ class MensagensConstantes {
   static const String TODOS = "Todos";
   static const String TODOS_PRODUTOS = "Todos Produtos";
   static const String SEM_PRODUTOS = "Sem Produtos";
+  static const String ADICIONAR_NO_CARRINHO = "Add to Cart";
+  static const String CARRINHO = "Cart";
 
 
 }

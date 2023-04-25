@@ -16,9 +16,9 @@ class Request {
 class Endpoints {
   //GET
   static const String GET_TODOS_PRODUTOS = 'products';
+  static const String GET_CARRINHO = 'carts/user/1';
 
+  //PUT
 
-  //POST
-
-  static const String EXCLUIR_PRODUTOS_FICHA = 'api/v1/prevenda/cancelamento';
+  static const String SALVAR_PRODUTO_NO_CARRINHO = 'carts/1';
 }
