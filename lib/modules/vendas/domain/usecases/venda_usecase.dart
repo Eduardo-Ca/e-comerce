@@ -20,7 +20,7 @@ class UseCasesVenda extends IUsecasesVenda {
   }
 
    @override
-  Future<VendaModel> pegarCarrinho() async {
+  Future< List<VendaModel>> pegarCarrinho() async {
     final result = await repositoryRemoto.pegarCarrinho();
 
     if (result.isRight()) {

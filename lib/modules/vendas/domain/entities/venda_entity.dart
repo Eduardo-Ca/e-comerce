@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class Venda extends Equatable {
   int id;
-  List<ProductsModel> produtos;
+  List<ProductsModel> products;
   int total;
   int discountedTotal;
   int userId;
@@ -14,7 +14,7 @@ class Venda extends Equatable {
   
   Venda({
     this.id = 0,
-    required this.produtos,
+    required this.products,
     required this.total,
     required this.discountedTotal,
     required this.userId,
@@ -25,7 +25,7 @@ class Venda extends Equatable {
   @override
   List<Object?> get props => [
       id,
-      produtos,
+      products,
       total,
       discountedTotal,
       userId,

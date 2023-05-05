@@ -8,5 +8,5 @@ import 'package:ecomerce/modules/vendas/data/models/venda_model.dart';
 
 abstract class IVendaDatasource {
   Future<Either<Failure, Response>> salvarCarrinho(idProduto,quantidade);
-  Future<Either<Failure,VendaModel>>  pegarCarrinho();
+  Future<Either<Failure, List<VendaModel>>>  pegarCarrinho();
 }

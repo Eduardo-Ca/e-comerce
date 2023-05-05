@@ -14,27 +14,25 @@ abstract class _VendaStore with Store {
 
  late UseCasesVenda _useCasesVenda;
 
-  _ProdutoStore() {
+  _VendaStore() {
     _useCasesVenda = GetIt.I.get<UseCasesVenda>();
     autorun(
       (_) {},
     );
   }
 
-   @observable
-  int quantidade = 1;
+    @observable
+  ObservableList<VendaModel> carrinho = ObservableList<VendaModel>();
 
   @observable
-  VendaModel venda = VendaModel(id:1, produtos: [], total: 0, discountedTotal: 0, userId: 1, totalProducts: 0, totalQuantity: 0);
+  ObservableFuture<List<VendaModel>>? _vendaPendente;
+
 
   @observable
-  late Future<VendaModel> _vendaPendente;
+  bool vendaPendenteCarregando = false;
 
   @observable
-  bool _vendaPendenteCarregando = false;
-
-  @observable
-  bool _vendaPendenteCarregado = false;
+  bool vendaPendenteCarregado = false;
 
   @observable
   String errorMessage = '';
@@ -44,21 +42,29 @@ abstract class _VendaStore with Store {
     try {
       errorMessage = ''; //reseta a mensagem de erro
 
-      _vendaPendenteCarregando = true;
-      _vendaPendenteCarregado = false;
+      vendaPendenteCarregando = true;
+      vendaPendenteCarregado = false;
 
-      VendaModel carrinho = VendaModel(id:1, produtos: [], total: 0, discountedTotal: 0, userId: 1, totalProducts: 0, totalQuantity: 0);
+      List<VendaModel> listaDeVenda = [];
 
       _vendaPendente = ObservableFuture( _useCasesVenda.pegarCarrinho());
 
-      carrinho = await _vendaPendente;
+      listaDeVenda = await _vendaPendente!;
 
       do {
-       
-      } while (_vendaPendenteCarregado != true || errorMessage != '');
+        if (_vendaPendente!.status == FutureStatus.fulfilled) {
+          if (errorMessage == '') {
+            carrinho.clear();
+            carrinho.addAll(listaDeVenda);
+
+            vendaPendenteCarregado = true;
+            vendaPendenteCarregando = false;
+          }
+        }
+      } while (vendaPendenteCarregado != true || errorMessage != '');
     } catch (e) {
-      _vendaPendenteCarregado = false;
-      _vendaPendenteCarregando = false;
+      vendaPendenteCarregado = false;
+      vendaPendenteCarregando = false;
       errorMessage = e.toString();
     }
   }

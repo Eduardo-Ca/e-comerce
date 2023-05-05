@@ -1,14 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:ecomerce/modules/core/utils/compartilhados/busca.componente.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
-import 'package:ecomerce/modules/home/presenter/components/home_card.dart';
+import 'package:ecomerce/modules/home/presenter/components/categoria_card.dart';
 import 'package:ecomerce/modules/home/presenter/components/produtos_card.dart';
 import 'package:ecomerce/modules/produtos/domain/usecases/produto_usecase.dart';
 import 'package:ecomerce/modules/produtos/presenter/detalhes_produto.dart';
 import 'package:ecomerce/stores/produto_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class HomeTela extends StatefulWidget {
@@ -22,13 +22,18 @@ class _HomeTelaState extends State<HomeTela> {
 
   late ProdutoStore store;
   late UseCasesProduto useCasesProduto;
+  String? valorPesquisa = "";
+  String? categoria;
+  String categoriaSelecionado = "";
   late double tamanhoTela;
   late double larguraTela;
+  final GlobalKey<BuscaComponenteState> _buscaKey = GlobalKey<BuscaComponenteState>();
 
   @override
   void didChangeDependencies() {
     store = Provider.of<ProdutoStore>(context);
-    store.obterProdutos();
+    store.obterProdutos(valorPesquisa,categoria);
+    store.obterCategorias();
     tamanhoTela = MediaQuery.of(context).size.height;
     larguraTela = MediaQuery.of(context).size.width;
     super.didChangeDependencies();
@@ -66,54 +71,67 @@ class _HomeTelaState extends State<HomeTela> {
         ),
       ),
       body: Column(children: [
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: _cards(),
-        ),
-        SizedBox(height: 20,),
-        listaDeProdutos()
+        Flexible(
+          flex: 2,
+          child: _listaDeCategorias()),
+        Flexible(
+          flex: 2,
+          child: _barraDePesquisa(), ),
+        Expanded(
+          flex: 9,
+          child: _listaDeProdutos())
+        
       ]),
     );
   }
 
-  _cards(){
-    return Row(
-      children: [
-        HomeCard(
-            texto: MensagensConstantes.TODOS,
-            icone: MdiIcons.bookmarkBox,
-            funcao: () {
-              
-            }),
-        HomeCard(
-            texto: MensagensConstantes.SAPATOS,
-            icone: MdiIcons.shoeSneaker,
-            funcao: () {}),
-        HomeCard(
-            texto: MensagensConstantes.CAMISAS,
-            icone: MdiIcons.tshirtCrew,
-            funcao: () {}),
-        HomeCard(
-            texto: MensagensConstantes.ACESSORIOS,
-            icone: MdiIcons.sunglasses,
-            funcao: () {}),
-        HomeCard(
-            texto: MensagensConstantes.COMESTICOS,
-            icone: MdiIcons.lipstick,
-            funcao: () {}),
-      ],
-    );
+  _listaDeCategorias(){
+    return Observer(builder: (context) {
+      if (store.listaCategorias.isEmpty) {
+        return Container();
+      } else {
+        return  ListView.builder(
+          scrollDirection: Axis.horizontal,
+          controller: ScrollController(),
+          shrinkWrap: true,
+          itemCount: store.listaCategorias.length,
+          itemBuilder: (context, index) {
+            var item = store.listaCategorias[index];
+            return SizedBox(
+              width: 160,
+              child: ListTile(
+                contentPadding: EdgeInsets.all(0),
+                //!=== Card ===
+                title: CategoriaCard(categoria: item,selecionado:categoriaSelecionado),
+                onTap: (() {
+                   categoria = item;
+                   store.obterProdutos(valorPesquisa,categoria);
+                   categoriaSelecionado = categoria!;
+                   setState(() {});
+                }),
+              ),
+            );
+          },
+        );
+      }
+    });
   }
 
-  listaDeProdutos(){
+  _listaDeProdutos(){
     return Observer(builder: (context) {
-      if (store.listaProdutos.isEmpty) {
+      if(store.produtosPendentesCarregando) {
+        return Center(child: SizedBox(
+          width: 100,
+          child: CircularProgressIndicator())
+          );
+      }
+      else if (store.listaProdutos.isEmpty) {
         return Row(
-        
+          mainAxisAlignment: MainAxisAlignment.center,
           children: const [
             Icon(
               Icons.star,
-              color: Color(0xffca485c),
+              color: Colors.orange,
             ), 
             Text(
               MensagensConstantes.SEM_PRODUTOS,
@@ -124,33 +142,52 @@ class _HomeTelaState extends State<HomeTela> {
             ),
             Icon(
               Icons.star,
-              color: Color(0xffca485c),
+              color: Colors.orange,
             ),
           ],
         );
       } else {
-        return  SizedBox(
-          width: larguraTela-70,
-          height: tamanhoTela/1.7,
-          child: ListView.builder(
-            //scrollDirection: Axis.horizontal,
-            controller: ScrollController(),
-            shrinkWrap: true,
-            itemCount: store.listaProdutos.length,
-            itemBuilder: (context, index) {
-              var item = store.listaProdutos[index];
-              return ListTile(
+        return  ListView.builder(
+          scrollDirection: Axis.horizontal,
+          controller: ScrollController(),
+          shrinkWrap: true,
+          itemCount: store.listaProdutos.length,
+          itemBuilder: (context, index) {
+            var item = store.listaProdutos[index];
+            return SizedBox(
+              height: 60,
+              width: 240,
+              child: ListTile(
                 //!=== Card ===
                 title: ProdutosCard(produto: item),
                 onTap: (() {
                     Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
                 }),
-              );
-            },
-           
-          ),
+              ),
+            );
+          },
+         
         );
       }
     });
+  }
+
+    _barraDePesquisa() {
+    return BuscaComponente(
+      textoBranco: false,
+      teclado:TextInputType.text,
+      cor: Colors.black,
+      autoFocus: false,
+      key: _buscaKey,
+      placeholder: MensagensConstantes.PROCURAR,
+      funcao: () {
+        categoria = null;
+        valorPesquisa = _buscaKey.currentState!.pesquisa;
+        categoriaSelecionado = "";
+        store.obterProdutos(valorPesquisa,categoria);
+        setState(() {});
+
+      },
+    );
   }
 }

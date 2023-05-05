@@ -22,7 +22,7 @@ abstract class _ProdutoStore with Store {
 
    @observable
   int quantidade = 1;
-
+//==================================== LISTA PRODUTOS ===========================================================
   @observable
   ObservableList<ProductsModel> listaProdutos = ObservableList<ProductsModel>();
 
@@ -30,25 +30,25 @@ abstract class _ProdutoStore with Store {
   ObservableFuture<List<ProductsModel>>? _produtosPendentes;
 
   @observable
-  bool _produtosPendentesCarregando = false;
+  bool produtosPendentesCarregando = false;
 
   @observable
-  bool _produtosPendentesCarregado = false;
+  bool produtosPendentesCarregado = false;
 
   @observable
   String errorMessage = '';
 
     @action
-  Future<void> obterProdutos() async {
+  Future<void> obterProdutos(String? valorPesquisa,String? categoria) async {
     try {
       errorMessage = ''; //reseta a mensagem de erro
 
-      _produtosPendentesCarregando = true;
-      _produtosPendentesCarregado = false;
+      produtosPendentesCarregando = true;
+      produtosPendentesCarregado = false;
 
       List<ProductsModel> listaDeProdutos = [];
 
-      _produtosPendentes = ObservableFuture( _useCasesProdutos.obterTodosProdutos());
+      _produtosPendentes = ObservableFuture( _useCasesProdutos.obterTodosProdutos(valorPesquisa,categoria));
 
       listaDeProdutos = await _produtosPendentes!;
 
@@ -58,15 +58,69 @@ abstract class _ProdutoStore with Store {
             listaProdutos.clear();
             listaProdutos.addAll(listaDeProdutos);
 
-            _produtosPendentesCarregado = true;
-            _produtosPendentesCarregando = false;
+            produtosPendentesCarregado = true;
+            produtosPendentesCarregando = false;
           }
         }
-      } while (_produtosPendentesCarregado != true || errorMessage != '');
+      } while (produtosPendentesCarregado != true || errorMessage != '');
     } catch (e) {
-      _produtosPendentesCarregado = false;
-      _produtosPendentesCarregando = false;
+      produtosPendentesCarregado = false;
+      produtosPendentesCarregando = false;
       errorMessage = e.toString();
     }
   }
+
+  salvarProdutosCarrinho({required int id,required int quantidade}){
+
+    _useCasesProdutos.salvarProdutoCarrinho(id: id, quantidade: quantidade);
+  }
+
+  
+//==================================== LISTA PRODUTOS ===========================================================
+//==================================== LISTA CATEGORIAS ===========================================================
+
+   @observable
+  ObservableList<String> listaCategorias = ObservableList<String>();
+
+  @observable
+  ObservableFuture<List<String>>? _categoriasPendentes;
+
+  @observable
+  bool _categoriasPendentesCarregando = false;
+
+  @observable
+  bool _categoriasPendentesCarregado = false;
+
+    @action
+  Future<void> obterCategorias() async {
+    try {
+      errorMessage = ''; //reseta a mensagem de erro
+
+      _categoriasPendentesCarregando = true;
+      _categoriasPendentesCarregado = false;
+
+      List<String> listaDeCategorias = [];
+
+      _categoriasPendentes = ObservableFuture( _useCasesProdutos.obterTodasCategorias());
+
+      listaDeCategorias = await _categoriasPendentes!;
+
+      do {
+        if (_categoriasPendentes!.status == FutureStatus.fulfilled) {
+          if (errorMessage == '') {
+            listaCategorias.clear();
+            listaCategorias.addAll(listaDeCategorias);
+
+            _categoriasPendentesCarregado = true;
+            _categoriasPendentesCarregando = false;
+          }
+        }
+      } while (_categoriasPendentesCarregado != true || errorMessage != '');
+    } catch (e) {
+      _categoriasPendentesCarregado = false;
+      _categoriasPendentesCarregando = false;
+      errorMessage = e.toString();
+    }
+  }
+//==================================== LISTA CATEGORIAS ===========================================================
 }

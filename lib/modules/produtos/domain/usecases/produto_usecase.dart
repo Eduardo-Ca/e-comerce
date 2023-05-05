@@ -8,8 +8,8 @@ class UseCasesProduto extends IUsecasesProduto {
   UseCasesProduto(this.repositoryRemoto);
 
   @override
-  Future<List<ProductsModel>> obterTodosProdutos() async {
-    final result = await repositoryRemoto.obterTodosProdutos();
+  Future<List<ProductsModel>> obterTodosProdutos(String? valorPesquisa,String? categoria) async {
+    final result = await repositoryRemoto.obterTodosProdutos(valorPesquisa,categoria);
 
     if (result.isRight()) {
       return extrairInfoRight(result);
@@ -17,4 +17,25 @@ class UseCasesProduto extends IUsecasesProduto {
 
     throw Exception(extrairInfoLeft(result));
   }
+
+  
+  @override
+  Future<List<String>> obterTodasCategorias() async {
+    final result = await repositoryRemoto.obterTodasCategorias();
+
+    if (result.isRight()) {
+      return extrairInfoRight(result);
+    }
+
+    throw Exception(extrairInfoLeft(result));
+  }
+  
+  @override
+  Future<List<String>> salvarProdutoCarrinho({required int id,required int quantidade}) async{
+   final resultado = await repositoryRemoto.salvarProdutoCarrinho(id:id,quantidade:quantidade);
+    return resultado;
+  }
+
+
+ 
 }

@@ -15,7 +15,7 @@ class VendaRepository implements IVendaRepository {
   }
 
   @override
-  Future<Either<Failure,VendaModel>> pegarCarrinho() async {
+  Future<Either<Failure, List<VendaModel>>> pegarCarrinho() async {
     return await dataSource.pegarCarrinho();
   }
 }

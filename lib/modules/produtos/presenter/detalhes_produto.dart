@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class ProdutoDetalhes extends StatefulWidget {
   ProductsModel item;
   ProdutoDetalhes({super.key, required this.item});
@@ -48,23 +49,29 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(top: 82.0),
-        child: BottomAppBar(
-          height: 20,
-          elevation: 0,
-          color: Colors.orange,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.shopping_cart,
-                size: 32,
-                color: Colors.black,
-              ),
-              const Text(
-                MensagensConstantes.ADICIONAR_NO_CARRINHO,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-              )
-            ],
+        child: GestureDetector(
+          onTap: (){
+            store.salvarProdutosCarrinho(id: widget.item.id!, quantidade:  store.quantidade);
+            setState(() {});
+            Navigator.pop(context);
+          },
+          child: Container(
+            height: 20,
+            color: Colors.orange,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(
+                  Icons.shopping_cart,
+                  size: 32,
+                  color: Colors.black,
+                ),
+                const Text(
+                  MensagensConstantes.ADICIONAR_NO_CARRINHO,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -169,9 +176,9 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
         child: Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: Colors.red.withOpacity(0.2),
+              color: Colors.orange.withOpacity(0.4),
             ),
-            color: Colors.red.withOpacity(0.1),
+            color: Colors.deepOrange.withOpacity(0.1),
           ),
           child: ListView(
             children: [

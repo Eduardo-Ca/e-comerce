@@ -3,5 +3,5 @@ import 'package:ecomerce/modules/vendas/data/models/venda_model.dart';
 
 abstract class IUsecasesVenda {
   Future<Response> salvarCarrinho(idProduto,quantidade);
-  Future<VendaModel> pegarCarrinho();
+  Future< List<VendaModel>> pegarCarrinho();
 }

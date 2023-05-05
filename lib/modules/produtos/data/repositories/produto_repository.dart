@@ -9,7 +9,18 @@ class ProdutoRepository implements IProdutoRepository {
   ProdutoRepository(this.dataSource);
 
   @override
-  Future<Either<Failure, List<ProductsModel>>> obterTodosProdutos() async {
-    return await dataSource.obterTodosProdutos();
+  Future<Either<Failure, List<ProductsModel>>> obterTodosProdutos(String? valorPesquisa,String? categoria) async {
+    return await dataSource.obterTodosProdutos(valorPesquisa,categoria);
   }
+  @override
+  Future<Either<Failure, List<String>>> obterTodasCategorias() async {
+    return await dataSource.obterTodasCategorias();
+  }
+
+   Future<dynamic> salvarProdutoCarrinho({required int id,required int quantidade})async{
+      return await dataSource.salvarProdutoCarrinho(id:id,quantidade:quantidade);
+   }
+
 }
+
+  

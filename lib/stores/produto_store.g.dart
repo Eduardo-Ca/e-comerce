@@ -57,37 +57,37 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
     });
   }
 
-  late final _$_produtosPendentesCarregandoAtom = Atom(
-      name: '_ProdutoStore._produtosPendentesCarregando', context: context);
+  late final _$produtosPendentesCarregandoAtom =
+      Atom(name: '_ProdutoStore.produtosPendentesCarregando', context: context);
 
   @override
-  bool get _produtosPendentesCarregando {
-    _$_produtosPendentesCarregandoAtom.reportRead();
-    return super._produtosPendentesCarregando;
+  bool get produtosPendentesCarregando {
+    _$produtosPendentesCarregandoAtom.reportRead();
+    return super.produtosPendentesCarregando;
   }
 
   @override
-  set _produtosPendentesCarregando(bool value) {
-    _$_produtosPendentesCarregandoAtom
-        .reportWrite(value, super._produtosPendentesCarregando, () {
-      super._produtosPendentesCarregando = value;
+  set produtosPendentesCarregando(bool value) {
+    _$produtosPendentesCarregandoAtom
+        .reportWrite(value, super.produtosPendentesCarregando, () {
+      super.produtosPendentesCarregando = value;
     });
   }
 
-  late final _$_produtosPendentesCarregadoAtom =
-      Atom(name: '_ProdutoStore._produtosPendentesCarregado', context: context);
+  late final _$produtosPendentesCarregadoAtom =
+      Atom(name: '_ProdutoStore.produtosPendentesCarregado', context: context);
 
   @override
-  bool get _produtosPendentesCarregado {
-    _$_produtosPendentesCarregadoAtom.reportRead();
-    return super._produtosPendentesCarregado;
+  bool get produtosPendentesCarregado {
+    _$produtosPendentesCarregadoAtom.reportRead();
+    return super.produtosPendentesCarregado;
   }
 
   @override
-  set _produtosPendentesCarregado(bool value) {
-    _$_produtosPendentesCarregadoAtom
-        .reportWrite(value, super._produtosPendentesCarregado, () {
-      super._produtosPendentesCarregado = value;
+  set produtosPendentesCarregado(bool value) {
+    _$produtosPendentesCarregadoAtom
+        .reportWrite(value, super.produtosPendentesCarregado, () {
+      super.produtosPendentesCarregado = value;
     });
   }
 
@@ -107,12 +107,88 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
     });
   }
 
+  late final _$listaCategoriasAtom =
+      Atom(name: '_ProdutoStore.listaCategorias', context: context);
+
+  @override
+  ObservableList<String> get listaCategorias {
+    _$listaCategoriasAtom.reportRead();
+    return super.listaCategorias;
+  }
+
+  @override
+  set listaCategorias(ObservableList<String> value) {
+    _$listaCategoriasAtom.reportWrite(value, super.listaCategorias, () {
+      super.listaCategorias = value;
+    });
+  }
+
+  late final _$_categoriasPendentesAtom =
+      Atom(name: '_ProdutoStore._categoriasPendentes', context: context);
+
+  @override
+  ObservableFuture<List<String>>? get _categoriasPendentes {
+    _$_categoriasPendentesAtom.reportRead();
+    return super._categoriasPendentes;
+  }
+
+  @override
+  set _categoriasPendentes(ObservableFuture<List<String>>? value) {
+    _$_categoriasPendentesAtom.reportWrite(value, super._categoriasPendentes,
+        () {
+      super._categoriasPendentes = value;
+    });
+  }
+
+  late final _$_categoriasPendentesCarregandoAtom = Atom(
+      name: '_ProdutoStore._categoriasPendentesCarregando', context: context);
+
+  @override
+  bool get _categoriasPendentesCarregando {
+    _$_categoriasPendentesCarregandoAtom.reportRead();
+    return super._categoriasPendentesCarregando;
+  }
+
+  @override
+  set _categoriasPendentesCarregando(bool value) {
+    _$_categoriasPendentesCarregandoAtom
+        .reportWrite(value, super._categoriasPendentesCarregando, () {
+      super._categoriasPendentesCarregando = value;
+    });
+  }
+
+  late final _$_categoriasPendentesCarregadoAtom = Atom(
+      name: '_ProdutoStore._categoriasPendentesCarregado', context: context);
+
+  @override
+  bool get _categoriasPendentesCarregado {
+    _$_categoriasPendentesCarregadoAtom.reportRead();
+    return super._categoriasPendentesCarregado;
+  }
+
+  @override
+  set _categoriasPendentesCarregado(bool value) {
+    _$_categoriasPendentesCarregadoAtom
+        .reportWrite(value, super._categoriasPendentesCarregado, () {
+      super._categoriasPendentesCarregado = value;
+    });
+  }
+
   late final _$obterProdutosAsyncAction =
       AsyncAction('_ProdutoStore.obterProdutos', context: context);
 
   @override
-  Future<void> obterProdutos() {
-    return _$obterProdutosAsyncAction.run(() => super.obterProdutos());
+  Future<void> obterProdutos(String? valorPesquisa, String? categoria) {
+    return _$obterProdutosAsyncAction
+        .run(() => super.obterProdutos(valorPesquisa, categoria));
+  }
+
+  late final _$obterCategoriasAsyncAction =
+      AsyncAction('_ProdutoStore.obterCategorias', context: context);
+
+  @override
+  Future<void> obterCategorias() {
+    return _$obterCategoriasAsyncAction.run(() => super.obterCategorias());
   }
 
   @override
@@ -120,7 +196,10 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
     return '''
 quantidade: ${quantidade},
 listaProdutos: ${listaProdutos},
-errorMessage: ${errorMessage}
+produtosPendentesCarregando: ${produtosPendentesCarregando},
+produtosPendentesCarregado: ${produtosPendentesCarregado},
+errorMessage: ${errorMessage},
+listaCategorias: ${listaCategorias}
     ''';
   }
 }

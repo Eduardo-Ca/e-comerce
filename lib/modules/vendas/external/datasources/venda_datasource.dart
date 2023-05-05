@@ -1,5 +1,7 @@
 // ignore_for_file: unused_import, non_constant_identifier_names
 
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:ecomerce/modules/core/errors/failures.dart';
@@ -17,7 +19,7 @@ class ApiVendaDatasource implements IVendaDatasource {
   @override
   Future<Either<Failure, Response>> salvarCarrinho(idProduto,quantidade) async {
     dynamic retorno = await _request.fazRequestNovo(
-        method: Request.POST,
+        method: Request.PUT,
         endpoint: Endpoints.SALVAR_PRODUTO_NO_CARRINHO,
         data: {
           "IdPrevenda": idProduto,
@@ -38,12 +40,12 @@ class ApiVendaDatasource implements IVendaDatasource {
   }
 
    @override
-  Future<Either<ServerFailure, VendaModel>> pegarCarrinho() async {
+  Future<Either<ServerFailure, List<VendaModel>>> pegarCarrinho() async {
     dynamic retorno = await _request.fazRequestNovo(method: Request.GET,endpoint: Endpoints.GET_CARRINHO,data: null,);
 
-    VendaModel carrinho;
+    List<VendaModel> carrinho = [];
 
-    carrinho = retorno.data;
+    carrinho.add(VendaModel.fromJson(retorno.data['carts'][0])); 
 
     if (_request.response.statusCode != 200 && _request.response.statusCode != 201) {
       return Left(ServerFailure(

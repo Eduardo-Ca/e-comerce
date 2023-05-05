@@ -17,6 +17,7 @@ class Endpoints {
   //GET
   static const String GET_TODOS_PRODUTOS = 'products';
   static const String GET_CARRINHO = 'carts/user/1';
+  static const String GET_CATEGORIAS = 'products/categories';
 
   //PUT
 

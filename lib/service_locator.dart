@@ -10,22 +10,14 @@ GetIt getIt = GetIt.I;
 
 void setupLocator() {
   //=========================================== Produtos ======================================================================
-  getIt.registerLazySingleton<ProdutoDatasource>(
-      () => ProdutoDatasource());
-  getIt.registerLazySingleton<ProdutoRepository>(
-      () => ProdutoRepository(GetIt.I.get<ProdutoDatasource>()));
-
-  getIt.registerLazySingleton<UseCasesProduto>(
-      () => UseCasesProduto(GetIt.I.get<ProdutoRepository>()));
+  getIt.registerLazySingleton<ProdutoDatasource>(() => ProdutoDatasource());
+  getIt.registerLazySingleton<ProdutoRepository>(() => ProdutoRepository(GetIt.I.get<ProdutoDatasource>()));
+  getIt.registerLazySingleton<UseCasesProduto>(() => UseCasesProduto(GetIt.I.get<ProdutoRepository>()));
   //=========================================== Produtos =====================================================================
 
     //=========================================== Vendas ======================================================================
-  getIt.registerLazySingleton<ApiVendaDatasource>(
-      () => ApiVendaDatasource());
-  getIt.registerLazySingleton<VendaRepository>(
-      () => VendaRepository(GetIt.I.get<ApiVendaDatasource>()));
-
-  getIt.registerLazySingleton<UseCasesVenda>(
-      () => UseCasesVenda(GetIt.I.get<VendaRepository>()));
+  getIt.registerLazySingleton<ApiVendaDatasource>(() => ApiVendaDatasource());
+  getIt.registerLazySingleton<VendaRepository>(() => VendaRepository(GetIt.I.get<ApiVendaDatasource>()));
+  getIt.registerLazySingleton<UseCasesVenda>(() => UseCasesVenda(GetIt.I.get<VendaRepository>()));
   //=========================================== Vendas =====================================================================
 }
