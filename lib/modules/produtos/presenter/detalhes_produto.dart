@@ -36,19 +36,20 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
         title: Text(widget.item.title!),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        carrosel(),
-        descricao(),
-        preco(),
-        quantidade(),
-        botaoAdicionarCarrinho()
+        _carrosel(),
+        _descricao(),
+        _preco(),
+        _quantidade(),
+        _total(),
+        _botaoAdicionarCarrinho()
       ]),
     );
   }
 
-  botaoAdicionarCarrinho() {
+  _botaoAdicionarCarrinho() {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.only(top: 82.0),
+        padding: const EdgeInsets.only(top: 42.0),
         child: GestureDetector(
           onTap: (){
             store.salvarProdutosCarrinho(id: widget.item.id!, quantidade:  store.quantidade);
@@ -78,7 +79,7 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
     );
   }
 
-  quantidade() {
+  _quantidade() {
     return Padding(
       padding: const EdgeInsets.only(top: 16.0),
       child: Center(
@@ -130,7 +131,7 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
     );
   }
 
-  descricao() {
+  _descricao() {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Row(
@@ -151,7 +152,7 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
     );
   }
 
-  preco() {
+  _preco() {
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: Text(
@@ -161,7 +162,7 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
     );
   }
 
-  carrosel() {
+  _carrosel() {
     return CarouselSlider.builder(
       options: CarouselOptions(
           height: 300,
@@ -187,6 +188,24 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
                 fit: BoxFit.cover,
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  _total(){
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Visibility(
+        visible:store.quantidade > 1,
+        child: Center(
+          child: Card(
+          color: Colors.orange,
+          child:Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text( "Total: R\$${(widget.item.price!*store.quantidade).toString()}"),
+          ),
           ),
         ),
       ),

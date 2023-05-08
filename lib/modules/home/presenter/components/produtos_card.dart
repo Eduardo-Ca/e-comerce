@@ -65,7 +65,7 @@ class _ProdutosCardState extends State<ProdutosCard> {
             style: const TextStyle(color: Color(0xffca485c), fontSize: 16),
           ),
         ),
-        SizedBox(width: 50,),
+        const SizedBox(width: 50,),
         Icon(Icons.star,
             size: 15,
             color: (widget.produto.rating! >= 1)

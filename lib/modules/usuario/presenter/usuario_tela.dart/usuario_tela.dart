@@ -81,7 +81,7 @@ _cardUsuario(context) {
               const Divider(
                 thickness: 1.6,
               ),
-              opcoes(texto: "Sair", funcao: (){print("clico");})
+              opcoes(texto: "Sair", funcao: (){})
             ],
           ),
         ),
@@ -113,9 +113,9 @@ _fundo(context) {
 
 PreferredSize _appBar() {
   return PreferredSize(
+      preferredSize: const Size.fromHeight(0),
       child: AppBar(
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ),
-      preferredSize: const Size.fromHeight(0));
+      ));
 }

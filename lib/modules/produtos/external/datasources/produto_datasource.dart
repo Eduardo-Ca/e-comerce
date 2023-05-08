@@ -15,7 +15,7 @@ class ProdutoDatasource implements IProdutoDatasource {
  
   @override
   Future<Either<ServerFailure, List<ProductsModel>>> obterTodosProdutos(String? valorPesquisa,String? categoria) async {
-    dynamic retorno = await _request.fazRequestNovo(method: Request.GET,endpoint:categoria == null? valorPesquisa == null ? Endpoints.GET_TODOS_PRODUTOS : Endpoints.GET_TODOS_PRODUTOS+"/search?q=${valorPesquisa}": Endpoints.GET_TODOS_PRODUTOS+"/category/${categoria}" ,data: null,);
+    dynamic retorno = await _request.fazRequestNovo(method: Request.GET,endpoint:categoria == null? valorPesquisa == null ? Endpoints.GET_TODOS_PRODUTOS : "${Endpoints.GET_TODOS_PRODUTOS}/search?q=$valorPesquisa": "${Endpoints.GET_TODOS_PRODUTOS}/category/$categoria" ,data: null,);
 
     List<ProductsModel> lista = [];
 
@@ -59,7 +59,7 @@ class ProdutoDatasource implements IProdutoDatasource {
     var idJson = jsonEncode(id);
     var quantidadeJson = jsonEncode(quantidade);
     dynamic retorno = await _request.fazRequestNovo(
-        method: Request.POST,
+        method: Request.PUT,
         endpoint: Endpoints.SALVAR_PRODUTO_NO_CARRINHO,
         data: {
           "id": idJson,

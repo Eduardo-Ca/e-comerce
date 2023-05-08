@@ -161,7 +161,8 @@ class _HomeTelaState extends State<HomeTela> {
                 //!=== Card ===
                 title: ProdutosCard(produto: item),
                 onTap: (() {
-                    Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
+                  FocusScope.of(context).unfocus();
+                  Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
                 }),
               ),
             );

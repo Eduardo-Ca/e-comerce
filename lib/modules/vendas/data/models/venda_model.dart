@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:ecomerce/modules/produtos/data/models/produto_model.dart';
 import 'package:ecomerce/modules/vendas/domain/entities/venda_entity.dart';
 

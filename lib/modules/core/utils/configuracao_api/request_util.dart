@@ -8,7 +8,7 @@ import 'package:ecomerce/modules/core/utils/compartilhados/components/alerta/ale
 import 'package:ecomerce/modules/core/utils/compartilhados/components/carregando/carregando-alerta.componente.dart';
 import 'package:ecomerce/modules/core/utils/constants/request_constante.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class RequestUtil {
   int? produtoId;
