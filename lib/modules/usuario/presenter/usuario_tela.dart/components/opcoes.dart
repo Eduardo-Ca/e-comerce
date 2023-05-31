@@ -14,13 +14,12 @@ class opcoes extends StatefulWidget {
 class _opcoesState extends State<opcoes> {
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Padding(
-        padding:
-            const EdgeInsets.only(top: 18.0, left: 12, right: 8, bottom: 12),
-        child: GestureDetector(
-          onTap: widget.funcao,
-          
+    return GestureDetector(
+      onTap: widget.funcao,
+      child: Column(children: [
+        Padding(
+          padding:
+              const EdgeInsets.only(top: 18.0, left: 12, right: 8, bottom: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children:  [
@@ -36,10 +35,10 @@ class _opcoesState extends State<opcoes> {
             ],
           ),
         ),
-      ),
-      const Divider(
-        thickness: 1.6,
-      ),
-    ]);
+        const Divider(
+          thickness: 1.6,
+        ),
+      ]),
+    );
   }
 }

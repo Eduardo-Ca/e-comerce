@@ -86,18 +86,18 @@ abstract class _ProdutoStore with Store {
   ObservableFuture<List<String>>? _categoriasPendentes;
 
   @observable
-  bool _categoriasPendentesCarregando = false;
+  bool categoriasPendentesCarregando = false;
 
   @observable
-  bool _categoriasPendentesCarregado = false;
+  bool categoriasPendentesCarregado = false;
 
     @action
   Future<void> obterCategorias() async {
     try {
       errorMessage = ''; //reseta a mensagem de erro
 
-      _categoriasPendentesCarregando = true;
-      _categoriasPendentesCarregado = false;
+      categoriasPendentesCarregando = true;
+      categoriasPendentesCarregado = false;
 
       List<String> listaDeCategorias = [];
 
@@ -111,14 +111,14 @@ abstract class _ProdutoStore with Store {
             listaCategorias.clear();
             listaCategorias.addAll(listaDeCategorias);
 
-            _categoriasPendentesCarregado = true;
-            _categoriasPendentesCarregando = false;
+            categoriasPendentesCarregado = true;
+            categoriasPendentesCarregando = false;
           }
         }
-      } while (_categoriasPendentesCarregado != true || errorMessage != '');
+      } while (categoriasPendentesCarregado != true || errorMessage != '');
     } catch (e) {
-      _categoriasPendentesCarregado = false;
-      _categoriasPendentesCarregando = false;
+      categoriasPendentesCarregado = false;
+      categoriasPendentesCarregando = false;
       errorMessage = e.toString();
     }
   }

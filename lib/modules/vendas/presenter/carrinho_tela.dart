@@ -1,3 +1,4 @@
+import 'package:ecomerce/modules/core/utils/compartilhados/skeleton.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/vendas/domain/usecases/venda_usecase.dart';
 import 'package:ecomerce/stores/venda_store.dart';
@@ -75,10 +76,9 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
   _listaDeProdutos(){
     return Observer(builder: (context) {
       if(store.vendaPendenteCarregando) {
-        return const Center(child: SizedBox(
-          width: 100,
-          child: CircularProgressIndicator())
-          );
+        var larguraTela = MediaQuery.of(context).size.width;
+        return SizedBox(height: 600,child:skeleton(80,larguraTela),);
+       
       }
       else if (store.carrinho[0].products.isEmpty) {
         return Row(
@@ -162,10 +162,9 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
             ),
            ),
           child: Center(
-            child: Text(
-              "Total: R\$${store.carrinho[0].total}",
-              style: const TextStyle(color:Colors.white,fontWeight: FontWeight.bold, fontSize: 22),
-            ),
+            child:store.carrinho.isEmpty 
+            ? const Text("Total: R\$0.00", style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold, fontSize: 22)) 
+            : Text("Total: R\$${store.carrinho[0].total}", style: const TextStyle(color:Colors.white,fontWeight: FontWeight.bold, fontSize: 22),),
           ),
         ),
       ),
@@ -208,5 +207,16 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
         ),
       ),
     );
+  }
+
+  skeleton(double heigth,double width){
+    return ListView.separated(
+      itemBuilder: (BuildContext context, int index) {
+          return Skeleton(heigth: heigth, width: width);
+        },
+
+      itemCount: 6,
+      separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 12,),
+      );
   }
 }

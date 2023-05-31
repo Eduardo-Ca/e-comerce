@@ -1,3 +1,4 @@
+import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/home/presenter/home_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/usuario_tela.dart/usuario_tela.dart';
 import 'package:ecomerce/modules/vendas/presenter/carrinho_tela.dart';
@@ -62,7 +63,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
           color: tabAtual == 0 ? Colors.orangeAccent : Colors.grey,
         ),
         Text(
-          "Home",
+          MensagensConstantes.HOME,
           style: TextStyle(
               color: tabAtual == 0 ? Colors.orangeAccent : Colors.grey),
         ),
@@ -85,7 +86,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
           color: tabAtual == 1 ? Colors.orangeAccent : Colors.grey,
         ),
         Text(
-          "Usuário",
+          MensagensConstantes.USUARIO,
           style: TextStyle(
             color: tabAtual == 1 ? Colors.orangeAccent : Colors.grey),
         ),
@@ -108,7 +109,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
           color: tabAtual == 2 ? Colors.orangeAccent : Colors.grey,
         ),
         Text(
-          "Carrinho",
+          MensagensConstantes.CARRINHO,
           style: TextStyle(
             color: tabAtual == 2 ? Colors.orangeAccent : Colors.grey),
         ),

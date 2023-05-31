@@ -62,21 +62,29 @@ class ProdutoDatasource implements IProdutoDatasource {
         method: Request.PUT,
         endpoint: Endpoints.SALVAR_PRODUTO_NO_CARRINHO,
         data: {
-          "id": idJson,
-          "quantity":quantidadeJson
-
+          "merge": true,
+          "products": [
+            {
+              "id": idJson,
+              "quantity":quantidadeJson
+            }
+          ],
+        
         },
         dataParameters: {
-          "id": idJson,
-          "quantity":quantidadeJson
+           "merge": true,
+          "products": [
+            {
+              "id": idJson,
+              "quantity":quantidadeJson
+            }
+          ],
+        
         },
         sincronizando: true);
   
 
     return retorno;
   }
-
-
-
-  
+ 
 }

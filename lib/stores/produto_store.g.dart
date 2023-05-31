@@ -144,16 +144,16 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
       name: '_ProdutoStore._categoriasPendentesCarregando', context: context);
 
   @override
-  bool get _categoriasPendentesCarregando {
+  bool get categoriasPendentesCarregando {
     _$_categoriasPendentesCarregandoAtom.reportRead();
-    return super._categoriasPendentesCarregando;
+    return super.categoriasPendentesCarregando;
   }
 
   @override
-  set _categoriasPendentesCarregando(bool value) {
+  set categoriasPendentesCarregando(bool value) {
     _$_categoriasPendentesCarregandoAtom
-        .reportWrite(value, super._categoriasPendentesCarregando, () {
-      super._categoriasPendentesCarregando = value;
+        .reportWrite(value, super.categoriasPendentesCarregando, () {
+      super.categoriasPendentesCarregando = value;
     });
   }
 
@@ -161,16 +161,16 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
       name: '_ProdutoStore._categoriasPendentesCarregado', context: context);
 
   @override
-  bool get _categoriasPendentesCarregado {
+  bool get categoriasPendentesCarregado {
     _$_categoriasPendentesCarregadoAtom.reportRead();
-    return super._categoriasPendentesCarregado;
+    return super.categoriasPendentesCarregado;
   }
 
   @override
-  set _categoriasPendentesCarregado(bool value) {
+  set categoriasPendentesCarregado(bool value) {
     _$_categoriasPendentesCarregadoAtom
-        .reportWrite(value, super._categoriasPendentesCarregado, () {
-      super._categoriasPendentesCarregado = value;
+        .reportWrite(value, super.categoriasPendentesCarregado, () {
+      super.categoriasPendentesCarregado = value;
     });
   }
 

@@ -31,7 +31,7 @@ class UseCasesProduto extends IUsecasesProduto {
   }
   
   @override
-  Future<List<String>> salvarProdutoCarrinho({required int id,required int quantidade}) async{
+  Future<dynamic> salvarProdutoCarrinho({required int id,required int quantidade}) async{
    final resultado = await repositoryRemoto.salvarProdutoCarrinho(id:id,quantidade:quantidade);
     return resultado;
   }

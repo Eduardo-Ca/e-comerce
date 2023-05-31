@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:ecomerce/modules/core/utils/compartilhados/busca.componente.dart';
+import 'package:ecomerce/modules/core/utils/compartilhados/skeleton.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/home/presenter/components/categoria_card.dart';
 import 'package:ecomerce/modules/home/presenter/components/produtos_card.dart';
@@ -70,24 +71,30 @@ class _HomeTelaState extends State<HomeTela> {
           ),
         ),
       ),
-      body: Column(children: [
-        Flexible(
-          flex: 2,
-          child: _listaDeCategorias()),
-        Flexible(
-          flex: 2,
-          child: _barraDePesquisa(), ),
-        Expanded(
-          flex: 9,
-          child: _listaDeProdutos())
-        
-      ]),
+      body: SingleChildScrollView(
+        child: Column(children: [
+           SizedBox(
+            height: 100,
+            width: 460,
+            child:_listaDeCategorias(),
+           ),
+          _barraDePesquisa(),
+          SizedBox(
+            height: 330,
+            width: 460,
+            child: _listaDeProdutos())
+          
+        ]),
+      ),
     );
   }
 
   _listaDeCategorias(){
     return Observer(builder: (context) {
-      if (store.listaCategorias.isEmpty) {
+       if(store.categoriasPendentesCarregando) {
+        return skeleton(140,140);
+      }
+      else if (store.listaCategorias.isEmpty) {
         return Container();
       } else {
         return  ListView.builder(
@@ -120,10 +127,7 @@ class _HomeTelaState extends State<HomeTela> {
   _listaDeProdutos(){
     return Observer(builder: (context) {
       if(store.produtosPendentesCarregando) {
-        return Center(child: SizedBox(
-          width: 100,
-          child: CircularProgressIndicator())
-          );
+        return skeleton(360,230);
       }
       else if (store.listaProdutos.isEmpty) {
         return Row(
@@ -154,9 +158,8 @@ class _HomeTelaState extends State<HomeTela> {
           itemCount: store.listaProdutos.length,
           itemBuilder: (context, index) {
             var item = store.listaProdutos[index];
-            return SizedBox(
-              height: 60,
-              width: 240,
+            return SizedBox(        
+              width: 260,
               child: ListTile(
                 //!=== Card ===
                 title: ProdutosCard(produto: item),
@@ -190,5 +193,20 @@ class _HomeTelaState extends State<HomeTela> {
 
       },
     );
+  }
+
+  skeleton(double heigth,double width){
+    return ListView.separated(
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Skeleton(heigth: heigth, width: width),
+          );
+        },
+        
+      itemCount: 3,
+      separatorBuilder: (BuildContext context, int index) => const SizedBox(width: 12,),
+      );
   }
 }

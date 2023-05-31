@@ -1,3 +1,5 @@
+import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
+import 'package:ecomerce/modules/usuario/presenter/login_tela/login_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/usuario_tela.dart/components/opcoes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -74,14 +76,20 @@ _cardUsuario(context) {
               const Padding(
                 padding: EdgeInsets.only(top: 80.0, bottom: 10),
                 child: Text(
-                  "Usuário",
+                  MensagensConstantes.USUARIO,
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
               const Divider(
                 thickness: 1.6,
               ),
-              opcoes(texto: "Sair", funcao: (){})
+              opcoes(texto: "teste 1", funcao: (){}),
+              opcoes(texto: "teste 2", funcao: (){}),
+              opcoes(texto: "teste 3", funcao: (){}),
+              opcoes(texto: MensagensConstantes.SAIR, funcao: (){
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);
+              }),
+
             ],
           ),
         ),

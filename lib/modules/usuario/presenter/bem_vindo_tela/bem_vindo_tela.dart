@@ -3,9 +3,14 @@ import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart'
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BemVindoTela extends StatelessWidget {
+class BemVindoTela extends StatefulWidget {
   const BemVindoTela({super.key});
 
+  @override
+  State<BemVindoTela> createState() => _BemVindoTelaState();
+}
+
+class _BemVindoTelaState extends State<BemVindoTela> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

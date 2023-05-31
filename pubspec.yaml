@@ -31,8 +31,8 @@ dependencies:
   dartz: ^0.10.1
   simple_animations: ^5.0.0+3
   get_it: ^7.2.0
-  sqflite: ^2.2.6
   carousel_slider: ^4.2.1
+  shimmer: ^3.0.0
   
 
 dev_dependencies:

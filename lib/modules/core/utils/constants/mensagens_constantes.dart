@@ -12,6 +12,14 @@ class MensagensConstantes {
   static const String CARRINHO = "Cart";
   static const String PROCURAR = "Search";
   static const String COMPRAR = "Purchase"; 
+  static const String DIGITE_SEU_EMAIL = "Type your e-mail";
+  static const String EMAIL = "Email *";
+  static const String DIGITE_SUA_SENHA = 'Type your password';
+  static const String SENHA ='password *';
+  static const String LOGIN ="Login";
+  static const String USUARIO = "User";
+  static const String SAIR = "Exit";
+  static const String REGISTRAR = "Register";
 
 
 }

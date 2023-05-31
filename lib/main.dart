@@ -1,6 +1,6 @@
 
 import 'package:ecomerce/modules/core/utils/constants/tema_constante.dart';
-import 'package:ecomerce/modules/usuario/presenter/bem_vindo_tela/bem_vindo_tela.dart';
+import 'package:ecomerce/modules/usuario/presenter/login_tela/login_tela.dart';
 import 'package:ecomerce/service_locator.dart';
 import 'package:ecomerce/stores/produto_store.dart';
 import 'package:ecomerce/stores/venda_store.dart';
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'E-commerce',
       theme: temaClaro,
       darkTheme: temaEscuro,
-      home: const BemVindoTela(),
+      home: const Login(),
     );
   }
 }
