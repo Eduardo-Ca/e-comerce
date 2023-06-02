@@ -21,7 +21,9 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
   @override
   void didChangeDependencies() {
     store = Provider.of<VendaStore>(context);
-    store.obterCarrinho();
+    store.carrinho.isEmpty
+      ?store.obterCarrinho() 
+      :null;
     super.didChangeDependencies();
   }
 

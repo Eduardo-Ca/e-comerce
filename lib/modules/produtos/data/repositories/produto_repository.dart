@@ -17,10 +17,6 @@ class ProdutoRepository implements IProdutoRepository {
     return await dataSource.obterTodasCategorias();
   }
 
-   @override
-     Future<dynamic> salvarProdutoCarrinho({required int id,required int quantidade})async{
-      return await dataSource.salvarProdutoCarrinho(id:id,quantidade:quantidade);
-   }
 
 }
 

@@ -68,4 +68,38 @@ abstract class _VendaStore with Store {
       errorMessage = e.toString();
     }
   }
+
+
+    salvarProdutosCarrinho({required int id,required int quantidade})async{
+
+      try {
+        errorMessage = ''; //reseta a mensagem de erro
+
+        vendaPendenteCarregando = true;
+        vendaPendenteCarregado = false;
+
+        List<VendaModel> listaDeVenda = [];
+
+        _vendaPendente = ObservableFuture( _useCasesVenda.salvarProdutoCarrinho(id: id, quantidade: quantidade));
+
+        listaDeVenda = await _vendaPendente!;
+
+        do {
+          if (_vendaPendente!.status == FutureStatus.fulfilled) {
+            if (errorMessage == '') {
+              carrinho.clear();
+              carrinho.addAll(listaDeVenda);
+
+              vendaPendenteCarregado = true;
+              vendaPendenteCarregando = false;
+            }
+          }
+        } while (vendaPendenteCarregado != true || errorMessage != '');
+      } catch (e) {
+        vendaPendenteCarregado = false;
+        vendaPendenteCarregando = false;
+        errorMessage = e.toString();
+      }
+    }
+
 }

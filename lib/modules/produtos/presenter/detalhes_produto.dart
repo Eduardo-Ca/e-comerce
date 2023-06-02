@@ -5,6 +5,7 @@ import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart'
 import 'package:ecomerce/modules/produtos/data/models/produto_model.dart';
 import 'package:ecomerce/modules/produtos/domain/usecases/produto_usecase.dart';
 import 'package:ecomerce/stores/produto_store.dart';
+import 'package:ecomerce/stores/venda_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -20,10 +21,12 @@ class ProdutoDetalhes extends StatefulWidget {
 
 class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
   late ProdutoStore store;
+  late VendaStore vendaStore;
   late UseCasesProduto useCasesProduto;
 
   @override
   void didChangeDependencies() {
+    vendaStore = Provider.of<VendaStore>(context);
     store = Provider.of<ProdutoStore>(context);
     store.quantidade = 1;
     super.didChangeDependencies();
@@ -51,9 +54,9 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
       child: Padding(
         padding: const EdgeInsets.only(top: 42.0),
         child: GestureDetector(
-          onTap: (){
-            store.salvarProdutosCarrinho(id: widget.item.id!, quantidade:  store.quantidade);
-            setState(() {});
+          onTap: () async{
+            await vendaStore.salvarProdutosCarrinho(id: widget.item.id!, quantidade:  store.quantidade);
+            print(vendaStore.carrinho);
             Navigator.pop(context);
           },
           child: Container(

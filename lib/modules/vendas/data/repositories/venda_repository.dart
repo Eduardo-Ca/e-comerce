@@ -12,4 +12,9 @@ class VendaRepository implements IVendaRepository {
   Future<Either<Failure, List<VendaModel>>> pegarCarrinho() async {
     return await dataSource.pegarCarrinho();
   }
+
+   @override
+  Future<Either<Failure, List<VendaModel>>> salvarProdutoCarrinho({required int id,required int quantidade})async {
+    return await dataSource.salvarProdutoCarrinho(id:id,quantidade:quantidade);
+  }
 }

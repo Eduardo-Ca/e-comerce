@@ -17,4 +17,15 @@ class UseCasesVenda extends IUsecasesVenda {
 
     throw Exception(extrairInfoLeft(result));
   }
+
+     @override
+  Future< List<VendaModel>> salvarProdutoCarrinho({required int id,required int quantidade}) async {
+    final result = await repositoryRemoto.salvarProdutoCarrinho(id:id,quantidade:quantidade);
+
+    if (result.isRight()) {
+      return extrairInfoRight(result);
+    }
+
+    throw Exception(extrairInfoLeft(result));
+  }
 }

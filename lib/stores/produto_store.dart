@@ -70,11 +70,6 @@ abstract class _ProdutoStore with Store {
     }
   }
 
-  salvarProdutosCarrinho({required int id,required int quantidade}){
-
-    _useCasesProdutos.salvarProdutoCarrinho(id: id, quantidade: quantidade);
-  }
-
   
 //==================================== LISTA PRODUTOS ===========================================================
 //==================================== LISTA CATEGORIAS ===========================================================
