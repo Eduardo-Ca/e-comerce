@@ -66,19 +66,19 @@ class _BemVindoTelaState extends State<BemVindoTela> {
                 repeatForever: true,
                 animatedTexts: [
                   ColorizeAnimatedText(
-                    'the store of your dreams!',
+                    MensagensConstantes.TEXTO_BEM_VINDO1,
                     textAlign: TextAlign.center,
                     textStyle: colorizeTextStyle,
                     colors: colorizeColors,
                   ),
                   ColorizeAnimatedText(
-                    'You will find what you need here',
+                    MensagensConstantes.TEXTO_BEM_VINDO2,
                     textAlign: TextAlign.center,
                     textStyle: colorizeTextStyle,
                     colors: colorizeColors,
                   ),
                   ColorizeAnimatedText(
-                    'LET\'S SHOPPING NOW!!!',
+                    MensagensConstantes.TEXTO_BEM_VINDO3,
                     textAlign: TextAlign.center,
                     textStyle: colorizeTextStyle,
                     colors: colorizeColors,

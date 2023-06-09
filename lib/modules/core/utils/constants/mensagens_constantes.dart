@@ -21,6 +21,7 @@ class MensagensConstantes {
   static const String SAIR = "Exit";
   static const String REGISTRAR = "Register";
   static const String FAVORITOS = "Favorites";
-
-
+  static const String TEXTO_BEM_VINDO1 =  'the store of your dreams!';
+  static const String TEXTO_BEM_VINDO2 = 'You will find what you need here';
+  static const String TEXTO_BEM_VINDO3 =  'LET\'S SHOPPING NOW!!!';
 }
