@@ -35,11 +35,11 @@ abstract class _VendaStore with Store {
   }
 
   @action
-  void calcularTotal()async{
+  void calcularTotal(){
     total = 0;
     carrinho.total = 0;
     for (var e in carrinho.products) { 
-      e.priceTotal = e.price! * e.quantity!;
+      e.priceTotal = e.price! * e.quantity;
       total += e.priceTotal!;
     }
     carrinho.total = total;

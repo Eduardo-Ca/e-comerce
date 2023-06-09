@@ -83,9 +83,7 @@ _cardUsuario(context) {
               const Divider(
                 thickness: 1.6,
               ),
-              opcoes(texto: "teste 1", funcao: (){}),
-              opcoes(texto: "teste 2", funcao: (){}),
-              opcoes(texto: "teste 3", funcao: (){}),
+              opcoes(texto: "teste", funcao: (){}),
               opcoes(texto: MensagensConstantes.SAIR, funcao: (){
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);
               }),

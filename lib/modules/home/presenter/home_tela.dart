@@ -2,6 +2,7 @@
 
 import 'package:ecomerce/modules/core/utils/compartilhados/busca.componente.dart';
 import 'package:ecomerce/modules/core/utils/compartilhados/skeleton.dart';
+import 'package:ecomerce/modules/core/utils/constants/imagens_constantes.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/home/presenter/components/categoria_card.dart';
 import 'package:ecomerce/modules/home/presenter/components/produtos_card.dart';
@@ -10,6 +11,7 @@ import 'package:ecomerce/modules/produtos/presenter/detalhes_produto.dart';
 import 'package:ecomerce/stores/produto_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
 class HomeTela extends StatefulWidget {
@@ -93,10 +95,14 @@ class _HomeTelaState extends State<HomeTela> {
             color: Colors.orange,
           ),
           Text(MensagensConstantes.FAVORITOS,),
-          SizedBox(
-           height: 330,
-           width: 460,
-           child: _listaDeProdutosFavoritos())
+          Padding(
+            padding: const EdgeInsets.only(bottom:15.0),
+            child: SizedBox(
+             height: 330,
+             width: 460,
+             child: _listaDeProdutosFavoritos()),
+          ),
+
           
         ]),
       ),
@@ -178,9 +184,11 @@ class _HomeTelaState extends State<HomeTela> {
               child: ListTile(
                 //!=== Card ===
                 title: ProdutosCard(produto: item),
-                onTap: (() {
+                onTap: (() async{
                   FocusScope.of(context).unfocus();
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
+                  // ignore: unused_local_variable
+                  var detalhes = await Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
+                  setState(() {});
                 }),
               ),
             );
@@ -192,28 +200,39 @@ class _HomeTelaState extends State<HomeTela> {
   }
 
    _listaDeProdutosFavoritos(){
+    if(store.listaProdutosFavoritos.isEmpty){
+       return SizedBox(
+         width:210,
+         child: Lottie.network(
+           ImagensConstantes.FAVORITO     
+         ),
+       );
+    }else{
     return Observer(builder: (context) {
-      return  ListView.builder(
-        scrollDirection: Axis.horizontal,
-        controller: ScrollController(),
-        shrinkWrap: true,
-        itemCount: store.listaProdutosFavoritos.length,
-        itemBuilder: (context, index) {
-          var item = store.listaProdutosFavoritos[index];
-          return SizedBox(        
-            width: 260,
-            child: ListTile(
-              //!=== Card ===
-              title: ProdutosCard(produto: item),
-              onTap: (() {
-                FocusScope.of(context).unfocus();
-                Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
-              }),
-            ),
-          );
-        },      
-      );
-    });
+        return  ListView.builder(
+          scrollDirection: Axis.horizontal,
+          controller: ScrollController(),
+          shrinkWrap: true,
+          itemCount: store.listaProdutosFavoritos.length,
+          itemBuilder: (context, index) {
+            var item = store.listaProdutosFavoritos[index];
+            return SizedBox(        
+              width: 260,
+              child: ListTile(
+                //!=== Card ===
+                title: ProdutosCard(produto: item),
+                 onTap: (() async{
+                  FocusScope.of(context).unfocus();
+                  // ignore: unused_local_variable
+                  var detalhes = await Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
+                  setState(() {});
+                }),
+              ),
+            );
+          },      
+        );
+      });
+    }
   }
 
   

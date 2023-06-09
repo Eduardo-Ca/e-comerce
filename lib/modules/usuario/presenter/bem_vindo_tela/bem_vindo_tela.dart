@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:ecomerce/modules/core/utils/compartilhados/home_appbar.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:flutter/material.dart';
@@ -5,12 +6,26 @@ import 'package:google_fonts/google_fonts.dart';
 
 class BemVindoTela extends StatefulWidget {
   const BemVindoTela({super.key});
+  
 
   @override
   State<BemVindoTela> createState() => _BemVindoTelaState();
 }
 
 class _BemVindoTelaState extends State<BemVindoTela> {
+
+  dynamic colorizeColors = [
+    const Color.fromARGB(255, 255, 255, 255),
+    const Color.fromARGB(255, 233, 170, 162),
+    const Color.fromARGB(255, 212, 131, 90),
+    const Color.fromARGB(255, 255, 106, 7),
+  ];
+
+  dynamic colorizeTextStyle = const TextStyle(
+    fontSize: 30.0,
+    fontFamily: 'Horizon',
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,19 +59,33 @@ class _BemVindoTelaState extends State<BemVindoTela> {
                   fontSize: 54,
                   fontWeight: FontWeight.bold),
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-              MensagensConstantes.LOJA_DO_SONHOS,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            const SizedBox(
+            SizedBox(
+              width: 200.0,
               height: 150,
+              child: AnimatedTextKit(
+                repeatForever: true,
+                animatedTexts: [
+                  ColorizeAnimatedText(
+                    'the store of your dreams!',
+                    textAlign: TextAlign.center,
+                    textStyle: colorizeTextStyle,
+                    colors: colorizeColors,
+                  ),
+                  ColorizeAnimatedText(
+                    'You will find what you need here',
+                    textAlign: TextAlign.center,
+                    textStyle: colorizeTextStyle,
+                    colors: colorizeColors,
+                  ),
+                  ColorizeAnimatedText(
+                    'LET\'S SHOPPING NOW!!!',
+                    textAlign: TextAlign.center,
+                    textStyle: colorizeTextStyle,
+                    colors: colorizeColors,
+                  ),
+                ],
+                isRepeatingAnimation: true,
+              ),
             ),
             ElevatedButton(
                 onPressed: () {

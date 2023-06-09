@@ -2,6 +2,7 @@ import 'package:ecomerce/modules/core/utils/compartilhados/skeleton.dart';
 import 'package:ecomerce/modules/core/utils/constants/imagens_constantes.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/vendas/presenter/components/card_carrinho.dart';
+import 'package:ecomerce/modules/vendas/presenter/components/detalhe_miniatura_produto.dart';
 import 'package:ecomerce/stores/venda_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -112,10 +113,35 @@ class _CarrinhoTelaState extends State<CarrinhoTela> {
                  },
              child: ListTile(
                  //!=== Card ===
-                 title:CardCarrinho(produto: item),
+                 title:Row(
+                   children: [
+                     CardCarrinho(produto: item,),
+                     Row(children: [
+                       Column(
+                        children: [
+                          IconButton(onPressed: (){
+                            item.quantity += 1;  
+                            store.calcularTotal();   
+                            setState(() {});                      
+                          }, icon: const Icon(Icons.add_circle,size: 24,color:Colors.orange)),
+                          IconButton(onPressed: (){
+                              if (item.quantity == 1){
+                                null;
+                              }else{
+                                item.quantity -= 1;                            
+                                store.calcularTotal(); 
+                                setState(() {});
+                              }
+                          }, icon: Icon(Icons.remove_circle,size: 24,color: item.quantity == 1? Colors.grey:Colors.orange )),
+                        ],
+                      ),
+                      Container(color: Colors.orange,height: 50,width: 2,)
+                     ],)
+                   ],
+                 ),
                  onTap: (() {
+                   detalhesMiniaturaProduto(context,item);
                    setState(() {});
-                   //Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
                  }),
                ),
              );

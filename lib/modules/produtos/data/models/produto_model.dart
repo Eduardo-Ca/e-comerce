@@ -5,7 +5,7 @@ import 'package:ecomerce/modules/produtos/domain/entities/produto_entity.dart';
 class ProductsModel extends Products {
   ProductsModel({
     int? id,
-    int? quantity,
+    int quantity = 0,
     String? title,
     String? description,
     int? price,
@@ -40,7 +40,6 @@ class ProductsModel extends Products {
     return <String, dynamic>{
       'id': id,
       'title': title,
-      'quantity':quantity,
       'description': description,
       'price': price,
       'priceTotal':priceTotal,
@@ -51,13 +50,13 @@ class ProductsModel extends Products {
       'category': category,
       'thumbnail': thumbnail,
       'images': images,
+
     };
   }
 
   factory ProductsModel.fromJson(Map<String, dynamic> map) {
     return ProductsModel(
       id: map['id'] != null ? map['id'] as int : null,
-      quantity: map['quantity'] != null ? map['quantity'] as int : null,
       title: map['title'] != null ? map['title'] as String : null,
       description: map['description'] != null ? map['description'] as String : null,
       price: map['price'] != null ? map['price'] as int : null,
@@ -67,7 +66,7 @@ class ProductsModel extends Products {
       brand: map['brand'] != null ? map['brand'] as String : null,
       category: map['category'] != null ? map['category'] as String : null,
       thumbnail: map['thumbnail'] != null ? map['thumbnail'] as String : null,
-      images: map['images'] != null ? map['images'] as List<dynamic> : null
+      images: map['images'] != null ? map['images'] as List<dynamic> : null, 
     );
   }
 

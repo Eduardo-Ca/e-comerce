@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class Products extends Equatable {
   int? id;
-  int? quantity;
+  int quantity;
   String? title;
   String? description;
   int? price;
