@@ -8,6 +8,7 @@ class Products extends Equatable {
   String? title;
   String? description;
   int? price;
+  int? priceTotal;
   double? discountPercentage;
   double? rating;
   int? stock;
@@ -15,6 +16,7 @@ class Products extends Equatable {
   String? category;
   String? thumbnail;
   List<dynamic>? images;
+  bool favorito = false;
 
   Products({
     this.id = 0,
@@ -22,6 +24,7 @@ class Products extends Equatable {
     this.title = '',
     this.description = '',
     this.price = 0,
+    this.priceTotal,
     this.discountPercentage = 0,
     this.rating = 0,
     this.stock = 0,
@@ -29,6 +32,7 @@ class Products extends Equatable {
     this.category = '',
     this.thumbnail = '',
     this.images = const [],
+    this.favorito = false,
   });
 
   @override
@@ -38,6 +42,7 @@ class Products extends Equatable {
         title,
         description,
         price,
+        priceTotal,
         discountPercentage,
         rating,
         stock,
@@ -45,6 +50,7 @@ class Products extends Equatable {
         category,
         thumbnail,
         images,
+        favorito,
       ];
 
 }

@@ -140,35 +140,35 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
     });
   }
 
-  late final _$_categoriasPendentesCarregandoAtom = Atom(
-      name: '_ProdutoStore._categoriasPendentesCarregando', context: context);
+  late final _$categoriasPendentesCarregandoAtom = Atom(
+      name: '_ProdutoStore.categoriasPendentesCarregando', context: context);
 
   @override
   bool get categoriasPendentesCarregando {
-    _$_categoriasPendentesCarregandoAtom.reportRead();
+    _$categoriasPendentesCarregandoAtom.reportRead();
     return super.categoriasPendentesCarregando;
   }
 
   @override
   set categoriasPendentesCarregando(bool value) {
-    _$_categoriasPendentesCarregandoAtom
+    _$categoriasPendentesCarregandoAtom
         .reportWrite(value, super.categoriasPendentesCarregando, () {
       super.categoriasPendentesCarregando = value;
     });
   }
 
-  late final _$_categoriasPendentesCarregadoAtom = Atom(
-      name: '_ProdutoStore._categoriasPendentesCarregado', context: context);
+  late final _$categoriasPendentesCarregadoAtom = Atom(
+      name: '_ProdutoStore.categoriasPendentesCarregado', context: context);
 
   @override
   bool get categoriasPendentesCarregado {
-    _$_categoriasPendentesCarregadoAtom.reportRead();
+    _$categoriasPendentesCarregadoAtom.reportRead();
     return super.categoriasPendentesCarregado;
   }
 
   @override
   set categoriasPendentesCarregado(bool value) {
-    _$_categoriasPendentesCarregadoAtom
+    _$categoriasPendentesCarregadoAtom
         .reportWrite(value, super.categoriasPendentesCarregado, () {
       super.categoriasPendentesCarregado = value;
     });
@@ -199,7 +199,9 @@ listaProdutos: ${listaProdutos},
 produtosPendentesCarregando: ${produtosPendentesCarregando},
 produtosPendentesCarregado: ${produtosPendentesCarregado},
 errorMessage: ${errorMessage},
-listaCategorias: ${listaCategorias}
+listaCategorias: ${listaCategorias},
+categoriasPendentesCarregando: ${categoriasPendentesCarregando},
+categoriasPendentesCarregado: ${categoriasPendentesCarregado}
     ''';
   }
 }

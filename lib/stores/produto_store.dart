@@ -22,6 +22,19 @@ abstract class _ProdutoStore with Store {
 
    @observable
   int quantidade = 1;
+
+  @observable
+  ObservableList<ProductsModel> listaProdutosFavoritos = ObservableList<ProductsModel>();
+
+  @action
+  void salvarFavorito(ProductsModel favorito){
+    listaProdutosFavoritos.add(favorito);
+  }
+
+  @action
+  void removerFavorito(ProductsModel favorito){
+    listaProdutosFavoritos.remove(favorito);
+  }
 //==================================== LISTA PRODUTOS ===========================================================
   @observable
   ObservableList<ProductsModel> listaProdutos = ObservableList<ProductsModel>();

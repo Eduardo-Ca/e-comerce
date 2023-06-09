@@ -20,6 +20,7 @@ class MensagensConstantes {
   static const String USUARIO = "User";
   static const String SAIR = "Exit";
   static const String REGISTRAR = "Register";
+  static const String FAVORITOS = "Favorites";
 
 
 }

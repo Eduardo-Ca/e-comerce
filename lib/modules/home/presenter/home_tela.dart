@@ -46,9 +46,10 @@ class _HomeTelaState extends State<HomeTela> {
     
     return Scaffold(
       appBar: AppBar(
+        elevation:0 ,
         automaticallyImplyLeading: false,
         title: const Padding(
-          padding: EdgeInsets.only(top: 28.0),
+          padding: EdgeInsets.only(top: 20.0),
           child: Center(
               child: Text(
             MensagensConstantes.HOME,
@@ -82,7 +83,20 @@ class _HomeTelaState extends State<HomeTela> {
           SizedBox(
             height: 330,
             width: 460,
-            child: _listaDeProdutos())
+            child: _listaDeProdutos()),
+
+           const Divider(
+            height: 20,
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
+            color: Colors.orange,
+          ),
+          Text(MensagensConstantes.FAVORITOS,),
+          SizedBox(
+           height: 330,
+           width: 460,
+           child: _listaDeProdutosFavoritos())
           
         ]),
       ),
@@ -123,6 +137,7 @@ class _HomeTelaState extends State<HomeTela> {
       }
     });
   }
+  
 
   _listaDeProdutos(){
     return Observer(builder: (context) {
@@ -175,6 +190,33 @@ class _HomeTelaState extends State<HomeTela> {
       }
     });
   }
+
+   _listaDeProdutosFavoritos(){
+    return Observer(builder: (context) {
+      return  ListView.builder(
+        scrollDirection: Axis.horizontal,
+        controller: ScrollController(),
+        shrinkWrap: true,
+        itemCount: store.listaProdutosFavoritos.length,
+        itemBuilder: (context, index) {
+          var item = store.listaProdutosFavoritos[index];
+          return SizedBox(        
+            width: 260,
+            child: ListTile(
+              //!=== Card ===
+              title: ProdutosCard(produto: item),
+              onTap: (() {
+                FocusScope.of(context).unfocus();
+                Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
+              }),
+            ),
+          );
+        },      
+      );
+    });
+  }
+
+  
 
     _barraDePesquisa() {
     return BuscaComponente(

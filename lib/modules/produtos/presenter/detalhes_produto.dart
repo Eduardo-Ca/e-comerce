@@ -37,26 +37,44 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.item.title!),
+        actions: [
+          IconButton(icon: widget.item.favorito?const Icon(Icons.star) :const Icon(Icons.star_border),
+          onPressed: (){
+            widget.item.favorito = !widget.item.favorito;
+
+            if( widget.item.favorito == false){
+              store.removerFavorito(widget.item);
+            }else{
+              store.salvarFavorito(widget.item);
+            }
+
+            setState(() {});
+          },),
+        ]
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _carrosel(),
-        _descricao(),
-        _preco(),
-        _quantidade(),
-        _total(),
-        _botaoAdicionarCarrinho()
-      ]),
+      bottomNavigationBar: _botaoAdicionarCarrinho(),
+      body: SingleChildScrollView(
+        child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          _carrosel(),
+          _descricao(),
+          _preco(),
+          _quantidade(),
+        ]),
+      ),
     );
   }
 
   _botaoAdicionarCarrinho() {
-    return Expanded(
+    return SizedBox(
+      height: 100,
       child: Padding(
         padding: const EdgeInsets.only(top: 42.0),
         child: GestureDetector(
-          onTap: () async{
-            await vendaStore.salvarProdutosCarrinho(id: widget.item.id!, quantidade:  store.quantidade);
-            print(vendaStore.carrinho);
+          onTap: () {
+            widget.item.quantity = store.quantidade;
+            vendaStore.salvarProdutosCarrinho(produto: widget.item);
             Navigator.pop(context);
           },
           child: Container(
@@ -97,7 +115,8 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
              Padding(
               padding: const EdgeInsets.only(left: 14.0),
-              child: IconButton(
+              child: IconButton(    
+                color: store.quantidade == 1? Colors.grey : Colors.orange,            
                   onPressed: () {
                     store.quantidade > 1
                     ?store.quantidade -= 1
@@ -136,7 +155,7 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
 
   _descricao() {
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.only(bottom:25.0,right: 12,left: 12),
       child: Row(
         children: [
           Expanded(
@@ -156,41 +175,49 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
   }
 
   _preco() {
-    return Padding(
-      padding: const EdgeInsets.all(12.0),
-      child: Text(
-        "R\$${widget.item.price!}",
-        style: const TextStyle(color: Colors.orange, fontSize: 23),
-      ),
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Text(
+            "R\$${widget.item.price!},00",
+            style: const TextStyle(color: Colors.orange, fontSize: 23),
+          ),
+        ),
+        _total()
+      ],
     );
   }
 
   _carrosel() {
-    return CarouselSlider.builder(
-      options: CarouselOptions(
-          height: 300,
-          autoPlay: true,
-          enlargeCenterPage: true,
-          enlargeStrategy: CenterPageEnlargeStrategy.height),
-      itemCount: widget.item.images!.length,
-      // ignore: non_constant_identifier_names
-      itemBuilder: (BuildContext context, int Index, int pageViewIndex) =>
-          Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.orange.withOpacity(0.4),
-            ),
-            color: Colors.deepOrange.withOpacity(0.1),
-          ),
-          child: ListView(
-            children: [
-              Image.network(
-                widget.item.images![Index],
-                fit: BoxFit.cover,
+    return Padding(
+      padding: const EdgeInsets.only(bottom:35.0),
+      child: CarouselSlider.builder(
+        options: CarouselOptions(
+            height: 300,
+            autoPlay: true,
+            enlargeCenterPage: true,
+            enlargeStrategy: CenterPageEnlargeStrategy.height),
+        itemCount: widget.item.images!.length,
+        // ignore: non_constant_identifier_names
+        itemBuilder: (BuildContext context, int Index, int pageViewIndex) =>
+            Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.orange.withOpacity(0.4),
               ),
-            ],
+              color: Colors.deepOrange.withOpacity(0.1),
+            ),
+            child: ListView(
+              children: [
+                Image.network(
+                  widget.item.images![Index],
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -207,7 +234,7 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
           color: Colors.orange,
           child:Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text( "Total: R\$${(widget.item.price!*store.quantidade).toString()}"),
+            child: Text( "Total: R\$${(widget.item.price!*store.quantidade).toString()},00"),
           ),
           ),
         ),

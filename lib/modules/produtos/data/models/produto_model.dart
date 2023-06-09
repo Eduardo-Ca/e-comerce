@@ -9,6 +9,7 @@ class ProductsModel extends Products {
     String? title,
     String? description,
     int? price,
+    int? priceTotal,
     double? discountPercentage,
     double? rating,
     int? stock,
@@ -16,6 +17,7 @@ class ProductsModel extends Products {
     String? category,
     String? thumbnail,
     List<dynamic>? images,
+    bool favorito = false,
   }) : super(
     id: id,
     brand: brand,
@@ -24,11 +26,13 @@ class ProductsModel extends Products {
     description: description,
     discountPercentage: discountPercentage,
     price: price,
+    priceTotal:priceTotal,
     rating: rating,
     stock: stock,
     title:title,
     thumbnail: thumbnail,
     images: images,
+    favorito:favorito,
   );
 
   
@@ -39,6 +43,7 @@ class ProductsModel extends Products {
       'quantity':quantity,
       'description': description,
       'price': price,
+      'priceTotal':priceTotal,
       'discountPercentage': discountPercentage,
       'rating': rating,
       'stock': stock,
