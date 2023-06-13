@@ -58,6 +58,7 @@ class _LoginState extends State<Login> {
                 child: SizedBox(
                   width: 320,
                   child: TextFormField(
+                    obscureText: true,
                     onChanged: login.SetPassword,
                     enabled: true,
                     decoration: InputDecoration(
@@ -73,9 +74,9 @@ class _LoginState extends State<Login> {
                 ),
               ),
               
-              Padding(
-                padding: const EdgeInsets.only(bottom:7.2),
-                child: const Text("Forgot your password?",style: TextStyle(color: Colors.orange),),
+              const Padding(
+                padding: EdgeInsets.only(bottom:7.2),
+                child: Text("Forgot your password?",style: TextStyle(color: Colors.orange),),
               ),
         
               Observer(builder: (_) {
