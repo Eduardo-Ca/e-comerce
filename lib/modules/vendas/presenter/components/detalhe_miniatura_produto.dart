@@ -10,25 +10,23 @@ Future<String?> detalhesMiniaturaProduto(BuildContext context, ProductsModel pro
     builder: (BuildContext context) {
       return AlertDialog(
        
-        content:Container(
-            child: AnimatedTextKit(
-            animatedTexts: [
-              TypewriterAnimatedText(
-                "${produto.title!}\nCategory:${produto.category}\n\n${produto.description!}",
-                textAlign: TextAlign.center,
-                textStyle: const TextStyle(
-                  fontSize: 17.0,
-                  color: Colors.black
-                ),
-                speed: const Duration(milliseconds: 50),
-              ),
-            ],
-            totalRepeatCount: 1,
-            pause: const Duration(milliseconds: 10),
-            displayFullTextOnTap: true,
-            stopPauseOnTap: true,
-          )
-        ),
+        content:AnimatedTextKit(
+        animatedTexts: [
+          TypewriterAnimatedText(
+            "${produto.title!}\nCategory:${produto.category}\n\n${produto.description!}",
+            textAlign: TextAlign.center,
+            textStyle: const TextStyle(
+              fontSize: 17.0,
+              color: Colors.black
+            ),
+            speed: const Duration(milliseconds: 50),
+          ),
+        ],
+        totalRepeatCount: 1,
+        pause: const Duration(milliseconds: 10),
+        displayFullTextOnTap: true,
+        stopPauseOnTap: true,
+          ),
         actions: <Widget>[
           TextButton(
             style: TextButton.styleFrom(

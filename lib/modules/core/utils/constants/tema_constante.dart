@@ -18,15 +18,18 @@ final ThemeData temaClaro = ThemeData(
 
 //!================= ESCURO ========================
 final ThemeData temaEscuro = ThemeData(
-  bottomSheetTheme: const BottomSheetThemeData(
-      backgroundColor: Color.fromARGB(255, 59, 59, 59)),
-  canvasColor: const Color.fromARGB(255, 4, 32, 74),
-  cardTheme: const CardTheme(
-    color: Color.fromARGB(255, 8, 43, 95),
+ appBarTheme: const AppBarTheme(
+    color: Colors.deepOrange,
   ),
-  iconTheme: const IconThemeData(color: Colors.white),
-  primarySwatch: Colors.blueGrey,
-  brightness: Brightness.dark,
-  primaryColor: const Color.fromARGB(31, 62, 62, 62),
-  primaryColorLight: const Color(0xffffcdd2),
+  bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.grey[700]),
+   canvasColor: Colors.grey[800],
+  cardTheme: const CardTheme(
+    color: Colors.white,
+  ),
+  iconTheme: const IconThemeData(color: Colors.deepOrange),
+  primarySwatch: Colors.deepOrange,
+  brightness: Brightness.light,
+  primaryColor: Colors.deepOrange,
+  primaryColorLight: Colors.deepOrange,
 );
+
