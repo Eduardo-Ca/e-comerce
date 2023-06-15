@@ -33,12 +33,10 @@ class _CardCarrinhoState extends State<CardCarrinho> {
                children: [
                   SizedBox(width:205,child: Text(widget.produto.title!,style: const TextStyle(fontSize: 17,),maxLines:1,overflow:TextOverflow.ellipsis,)),
                   Text("R\$${widget.produto.priceTotal.toString()},00",style: const TextStyle(color:Colors.grey,fontSize: 16,),),
-                  Text("Quantity:${widget.produto.quantity.toString()}",style: const TextStyle(color:Colors.grey,fontSize: 16,),),             
-                
+                  Text("Quantity:${widget.produto.quantity.toString()}",style: const TextStyle(color:Colors.grey,fontSize: 16,),),                      
               ],
             ),
           ),
-         
         ],
       ),
     );

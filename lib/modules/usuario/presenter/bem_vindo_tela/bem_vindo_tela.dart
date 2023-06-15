@@ -88,22 +88,23 @@ class _BemVindoTelaState extends State<BemVindoTela> {
               ),
             ),
             ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,MaterialPageRoute(builder: (context) => const HomeAppBar()));
-                },
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(18.0),
-                            side: const BorderSide(color: Colors.red)))),
-                child: const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    MensagensConstantes.COMECE_FAZER_COMPRAS,
-                    style: TextStyle(fontSize: 24, color: Colors.black),
-                  ),
-                ))
+              onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) => const HomeAppBar()));
+              },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.white),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: const BorderSide(color: Colors.red)))),
+              child: const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  MensagensConstantes.COMECE_FAZER_COMPRAS,
+                  style: TextStyle(fontSize: 24, color: Colors.black),
+                ),
+              ),
+            )
           ],
         ),
       ),

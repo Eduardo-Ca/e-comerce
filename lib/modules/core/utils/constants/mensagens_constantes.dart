@@ -13,9 +13,9 @@ class MensagensConstantes {
   static const String PROCURAR = "Search";
   static const String COMPRAR = "Purchase"; 
   static const String DIGITE_SEU_EMAIL = "Type your e-mail";
-  static const String EMAIL = "Email *";
+  static const String EMAIL = "Email";
   static const String DIGITE_SUA_SENHA = 'Type your password';
-  static const String SENHA ='password *';
+  static const String SENHA ='password';
   static const String LOGIN ="Login";
   static const String USUARIO = "User";
   static const String SAIR = "Exit";
@@ -24,4 +24,13 @@ class MensagensConstantes {
   static const String TEXTO_BEM_VINDO1 =  'the store of your dreams!';
   static const String TEXTO_BEM_VINDO2 = 'You will find what you need here';
   static const String TEXTO_BEM_VINDO3 =  'LET\'S SHOPPING NOW!!!';
+  static const String ESQUECEU_SUA_SENHA = "Forgot your password?";
+  static const String SELECIONE_DATA = "select date";
+  static const String DATA_NASCIMENTO = "Date of birth";
+  static const String USUARIO_NOME = "Username";
+  static const String CRIAR_CONTA = "Create account";
+  static const String SELECIONE_GENERO = "select your gender";
+  static const String HOMEM = "Male";
+  static const String MULHER = "Female";
+  static const String CAMPO_VAZIO = "this field cannot be empty";
 }

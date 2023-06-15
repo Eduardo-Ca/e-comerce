@@ -16,13 +16,13 @@ final ThemeData temaClaro = ThemeData(
   primaryColorLight: Colors.orange,
 );
 
-//!================= ESCURO ========================
+//================= ESCURO ========================
 final ThemeData temaEscuro = ThemeData(
  appBarTheme: const AppBarTheme(
     color: Colors.deepOrange,
   ),
   bottomSheetTheme: BottomSheetThemeData(backgroundColor: Colors.grey[700]),
-   canvasColor: Colors.grey[800],
+   canvasColor: Colors.grey[700],
   cardTheme: const CardTheme(
     color: Colors.white,
   ),

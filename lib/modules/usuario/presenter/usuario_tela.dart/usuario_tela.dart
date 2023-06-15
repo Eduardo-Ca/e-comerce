@@ -81,13 +81,13 @@ _cardUsuario(context) {
                 ),
               ),
               const Divider(
-                thickness: 1.6,
+                  thickness: 1.6,
+                ),
+                opcoes(texto: "teste", funcao: (){}),
+                opcoes(texto: MensagensConstantes.SAIR, funcao: (){
+                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);
+                },
               ),
-              opcoes(texto: "teste", funcao: (){}),
-              opcoes(texto: MensagensConstantes.SAIR, funcao: (){
-                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);
-              }),
-
             ],
           ),
         ),
@@ -123,5 +123,6 @@ PreferredSize _appBar() {
       child: AppBar(
         elevation: 0,
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-      ));
+      ),
+    );
 }

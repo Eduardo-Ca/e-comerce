@@ -1,6 +1,7 @@
 import 'package:ecomerce/modules/core/utils/constants/imagens_constantes.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/usuario/presenter/bem_vindo_tela/bem_vindo_tela.dart';
+import 'package:ecomerce/modules/usuario/presenter/registro_conta_tela/registro_conta_tela.dart';
 import 'package:ecomerce/stores/formulario.store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -73,10 +74,9 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-              
               const Padding(
                 padding: EdgeInsets.only(bottom:7.2),
-                child: Text("Forgot your password?",style: TextStyle(color: Colors.orange),),
+                child: Text(MensagensConstantes.ESQUECEU_SUA_SENHA,style: TextStyle(color: Colors.orange),),
               ),
         
               Observer(builder: (_) {
@@ -91,12 +91,12 @@ class _LoginState extends State<Login> {
                       child: const Text(MensagensConstantes.LOGIN)),
                 );
               }),
-        
-        
-               SizedBox(
+              SizedBox(
                   width: 300,
                  child: ElevatedButton(
-                      onPressed: () {} ,
+                      onPressed: () {
+                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegistroTela()));
+                      } ,
                       child: const Text(MensagensConstantes.REGISTRAR)),
                ),
         
