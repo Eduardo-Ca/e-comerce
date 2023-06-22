@@ -1,8 +1,12 @@
 import 'package:ecomerce/modules/core/utils/constants/imagens_constantes.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/usuario/data/models/usuario_model.dart';
+import 'package:ecomerce/modules/usuario/presenter/bem_vindo_tela/bem_vindo_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/registro_conta_tela/components/campo_de_registro.dart';
+import 'package:ecomerce/services/auth_service.dart';
+import 'package:ecomerce/stores/formulario.store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RegistroTela extends StatefulWidget {
   const RegistroTela({super.key});
@@ -17,10 +21,10 @@ class _RegistroTelaState extends State<RegistroTela> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController senhaController = TextEditingController();
   TextEditingController emailController = TextEditingController();
-  late UsuarioModel usuario;
+  
 
   final _formkey = GlobalKey<FormState>();
-
+  final loginStore = formularioStore();
   bool chip1Selecionado = true;
   bool chip2Selecionado = false;
 
@@ -36,7 +40,7 @@ class _RegistroTelaState extends State<RegistroTela> {
     final larguraTela = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: const Text(MensagensConstantes.CRIAR_CONTA),
+        title: const Text(MensagensConstantes.CRIAR_CONTA,),
       ),
       bottomNavigationBar:  SizedBox(
        width: larguraTela,
@@ -75,13 +79,15 @@ class _RegistroTelaState extends State<RegistroTela> {
         width: 300,
             child: ElevatedButton(onPressed: (){
                 if (_formkey.currentState!.validate()) {
-                  usuario = UsuarioModel(id: 0,username: usernameController.text,email: emailController.text,senha: senhaController.text,dataNascimento: dataController.text,genero: chip1Selecionado? "Male":"Female");
+                  loginStore.usuario = UsuarioModel(id: 0,username: usernameController.text,email: emailController.text,senha: senhaController.text,dataNascimento: dataController.text,genero: chip1Selecionado? "Male":"Female");
+                  registrar(loginStore.usuario);
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BemVindoTela()));
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Usuario: ${usuario.username} criado!',style: TextStyle(fontSize: 18),),
+                      content: Text('User: ${loginStore.usuario.username} created!',style: const TextStyle(fontSize: 18),),
                    ),
                 );
-                Navigator.pop(context);
+           
               }
             }, child: const Text(MensagensConstantes.REGISTRAR,style: TextStyle(fontSize: 20,color: Colors.white),
           ),
@@ -173,5 +179,13 @@ class _RegistroTelaState extends State<RegistroTela> {
         ),
       ],
     );
+  }
+
+   registrar(UsuarioModel usuario) async {
+    try {
+      await context.read<AuthService>().register(usuario.email,usuario.senha);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(e.message)));
+    }
   }
 }

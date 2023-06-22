@@ -68,17 +68,21 @@ class _ProdutoDetalhesState extends State<ProdutoDetalhes> {
 
   _botaoAdicionarCarrinho() {
     return SizedBox(
-      height: 100,
+      height: 60,
       child: Padding(
-        padding: const EdgeInsets.only(top: 42.0),
+        padding: const EdgeInsets.only(bottom: 5.0),
         child: GestureDetector(
           onTap: () {
             widget.item.quantity = store.quantidade;
             vendaStore.salvarProdutosCarrinho(produto: widget.item);
             Navigator.pop(context);
           },
-          child: Container(
-            height: 20,
+          child: Card(
+            shape: RoundedRectangleBorder(
+            side: const BorderSide(
+              color: Colors.orange,
+            ),
+            borderRadius: BorderRadius.circular(10.0)),
             color: Colors.orange,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -28,6 +28,7 @@ class _HomeTelaState extends State<HomeTela> {
   String? valorPesquisa = "";
   String? categoria;
   String categoriaSelecionado = "";
+  bool mostrarCategoria = false;
   late double tamanhoTela;
   late double larguraTela;
   final GlobalKey<BuscaComponenteState> _buscaKey = GlobalKey<BuscaComponenteState>();
@@ -76,32 +77,12 @@ class _HomeTelaState extends State<HomeTela> {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
-           SizedBox(
-            height: 100,
-            width: 460,
-            child:_listaDeCategorias(),
-           ),
+          _listaDeCategorias(),
           _barraDePesquisa(),
-          SizedBox(
-            height: 330,
-            width: 460,
-            child: _listaDeProdutos()),
-
-           const Divider(
-            height: 20,
-            thickness: 1,
-            indent: 20,
-            endIndent: 20,
-            color: Colors.orange,
-          ),
+          _listaDeProdutos(),
+          const Divider( height: 20, thickness: 1, indent: 20, endIndent: 20, color: Colors.orange,),
           Text(MensagensConstantes.FAVORITOS,),
-          Padding(
-            padding: const EdgeInsets.only(bottom:15.0),
-            child: SizedBox(
-             height: 330,
-             width: 460,
-             child: _listaDeProdutosFavoritos()),
-          ),
+          _listaDeProdutosFavoritos(),
 
           
         ]),
@@ -110,93 +91,104 @@ class _HomeTelaState extends State<HomeTela> {
   }
 
   _listaDeCategorias(){
-    return Observer(builder: (context) {
-       if(store.categoriasPendentesCarregando) {
-        return skeleton(140,140);
-      }
-      else if (store.listaCategorias.isEmpty) {
-        return Container();
-      } else {
-        return  ListView.builder(
-          scrollDirection: Axis.horizontal,
-          controller: ScrollController(),
-          shrinkWrap: true,
-          itemCount: store.listaCategorias.length,
-          itemBuilder: (context, index) {
-            var item = store.listaCategorias[index];
-            return SizedBox(
-              width: 160,
-              child: ListTile(
-                contentPadding: EdgeInsets.all(0),
-                //!=== Card ===
-                title: CategoriaCard(categoria: item,selecionado:categoriaSelecionado),
-                onTap: (() {
-                   categoria = item;
-                   store.obterProdutos(valorPesquisa,categoria);
-                   categoriaSelecionado = categoria!;
-                   setState(() {});
-                }),
-              ),
+    return Visibility(
+      visible: mostrarCategoria,
+      child: SizedBox(
+        height: 80,
+        width: 460,
+        child: Observer(builder: (context) {
+          if(store.categoriasPendentesCarregando) {
+            return skeleton(140,140);
+          }
+          else if (store.listaCategorias.isEmpty) {
+            return Container();
+          } else {
+            return  ListView.builder(
+              scrollDirection: Axis.horizontal,
+              controller: ScrollController(),
+              shrinkWrap: true,
+              itemCount: store.listaCategorias.length,
+              itemBuilder: (context, index) {
+                var item = store.listaCategorias[index];
+                return SizedBox(
+                  width: 160,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(0),
+                    //=== Card ===
+                    title: CategoriaCard(categoria: item,selecionado:categoriaSelecionado),
+                    onTap: (() {
+                      categoria = item;
+                      store.obterProdutos(valorPesquisa,categoria);
+                      categoriaSelecionado = categoria!;
+                      setState(() {});
+                    }),
+                  ),
+                );
+              },
             );
-          },
-        );
-      }
-    });
+          }
+        }),
+      )
+    );
   }
   
 
   _listaDeProdutos(){
-    return Observer(builder: (context) {
-      if(store.produtosPendentesCarregando) {
-        return skeleton(360,230);
-      }
-      else if (store.listaProdutos.isEmpty) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
-              Icons.star,
-              color: Colors.orange,
-            ), 
-            Text(
-              MensagensConstantes.SEM_PRODUTOS,
-              style: TextStyle(
-                  fontSize: 26,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.bold),
-            ),
-            Icon(
-              Icons.star,
-              color: Colors.orange,
-            ),
-          ],
-        );
-      } else {
-        return  ListView.builder(
-          scrollDirection: Axis.horizontal,
-          controller: ScrollController(),
-          shrinkWrap: true,
-          itemCount: store.listaProdutos.length,
-          itemBuilder: (context, index) {
-            var item = store.listaProdutos[index];
-            return SizedBox(        
-              width: 260,
-              child: ListTile(
-                //!=== Card ===
-                title: ProdutosCard(produto: item),
-                onTap: (() async{
-                  FocusScope.of(context).unfocus();
-                  // ignore: unused_local_variable
-                  var detalhes = await Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
-                  setState(() {});
-                }),
+    return SizedBox(
+      height: 330,
+      width: 460,
+      child: Observer(builder: (context) {
+        if(store.produtosPendentesCarregando) {
+          return skeleton(360,230);
+        }
+        else if (store.listaProdutos.isEmpty) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Icon(
+                Icons.star,
+                color: Colors.orange,
+              ), 
+              Text(
+                MensagensConstantes.SEM_PRODUTOS,
+                style: TextStyle(
+                    fontSize: 26,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold),
               ),
-            );
-          },
-         
-        );
-      }
-    });
+              Icon(
+                Icons.star,
+                color: Colors.orange,
+              ),
+            ],
+          );
+        } else {
+          return  ListView.builder(
+            scrollDirection: Axis.horizontal,
+            controller: ScrollController(),
+            shrinkWrap: true,
+            itemCount: store.listaProdutos.length,
+            itemBuilder: (context, index) {
+              var item = store.listaProdutos[index];
+              return SizedBox(        
+                width: 260,
+                child: ListTile(
+                  //=== Card ===
+                  title: ProdutosCard(produto: item),
+                  onTap: (() async{
+                    FocusScope.of(context).unfocus();
+                    // ignore: unused_local_variable
+                    var detalhes = await Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
+                    setState(() {});
+                  }),
+                ),
+              );
+            },
+           
+          );
+        }
+      }),
+    );
   }
 
    _listaDeProdutosFavoritos(){
@@ -208,51 +200,72 @@ class _HomeTelaState extends State<HomeTela> {
          ),
        );
     }else{
-    return Observer(builder: (context) {
-        return  ListView.builder(
-          scrollDirection: Axis.horizontal,
-          controller: ScrollController(),
-          shrinkWrap: true,
-          itemCount: store.listaProdutosFavoritos.length,
-          itemBuilder: (context, index) {
-            var item = store.listaProdutosFavoritos[index];
-            return SizedBox(        
-              width: 260,
-              child: ListTile(
-                //!=== Card ===
-                title: ProdutosCard(produto: item),
-                 onTap: (() async{
-                  FocusScope.of(context).unfocus();
-                  // ignore: unused_local_variable
-                  var detalhes = await Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
-                  setState(() {});
-                }),
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(bottom:15.0),
+      child: SizedBox(
+        height: 330,
+        width: 460,
+        child: Observer(builder: (context) {
+            return  ListView.builder(
+              scrollDirection: Axis.horizontal,
+              controller: ScrollController(),
+              shrinkWrap: true,
+              itemCount: store.listaProdutosFavoritos.length,
+              itemBuilder: (context, index) {
+                var item = store.listaProdutosFavoritos[index];
+                return SizedBox(        
+                  width: 260,
+                  child: ListTile(
+                    //=== Card ===
+                    title: ProdutosCard(produto: item),
+                     onTap: (() async{
+                      FocusScope.of(context).unfocus();
+                      // ignore: unused_local_variable
+                      var detalhes = await Navigator.push(context,MaterialPageRoute(builder: (context) => ProdutoDetalhes(item: item,)));
+                      setState(() {});
+                    }),
+                  ),
+                );
+              },      
             );
-          },      
-        );
-      });
+          }),
+      ),
+    );
     }
   }
 
   
 
     _barraDePesquisa() {
-    return BuscaComponente(
-      textoBranco: false,
-      teclado:TextInputType.text,
-      cor: Colors.black,
-      autoFocus: false,
-      key: _buscaKey,
-      placeholder: MensagensConstantes.PROCURAR,
-      funcao: () {
-        categoria = null;
-        valorPesquisa = _buscaKey.currentState!.pesquisa;
-        categoriaSelecionado = "";
-        store.obterProdutos(valorPesquisa,categoria);
-        setState(() {});
-
-      },
+    return Padding(
+      padding: const EdgeInsets.only(top:8.0),
+      child: Row(
+        children: [
+          SizedBox(
+            width:330,
+            child: BuscaComponente(
+              textoBranco: false,
+              teclado:TextInputType.text,
+              cor: Colors.black,
+              autoFocus: false,
+              key: _buscaKey,
+              placeholder: MensagensConstantes.PROCURAR,
+              funcao: () {
+                categoria = null;
+                valorPesquisa = _buscaKey.currentState!.pesquisa;
+                categoriaSelecionado = "";
+                store.obterProdutos(valorPesquisa,categoria);
+                setState(() {});
+          
+              },
+            ),
+          ),
+          IconButton(onPressed: (){
+            mostrarCategoria = !mostrarCategoria;
+            setState(() {});
+            }, icon: Icon(Icons.filter_list,size: 26,color: mostrarCategoria? Colors.orange:Colors.grey,))
+        ],
+      ),
     );
   }
 

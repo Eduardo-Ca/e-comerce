@@ -25,6 +25,7 @@ void main() async {
   )
   :await Firebase.initializeApp();
 
+
   setupLocator();
 
   runApp(MultiProvider(

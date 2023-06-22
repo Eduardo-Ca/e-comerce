@@ -1,3 +1,4 @@
+import 'package:ecomerce/modules/usuario/data/models/usuario_model.dart';
 import 'package:mobx/mobx.dart';
 
 part 'formulario.store.g.dart';
@@ -8,6 +9,10 @@ part 'formulario.store.g.dart';
 class formularioStore = _formularioStoreBase with _$formularioStore;
 
 abstract class _formularioStoreBase with Store {
+
+  @observable
+  UsuarioModel usuario = UsuarioModel(); 
+
   @observable
   String email = "";
 
@@ -18,14 +23,13 @@ abstract class _formularioStoreBase with Store {
   String password = "";
 
   @action
-  void SetPassword(String value) => password = value;
+  void setPassword(String value) => password = value;
 
   @computed
-  bool get isPasswordValid =>  password.length > 6;
+  bool get isPasswordValid =>  password.length > 1;
 
   @computed
-    bool get isEmailValid =>
-      RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+    bool get isEmailValid =>RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
 
   @computed
   bool get isFormValid => isEmailValid && isPasswordValid;

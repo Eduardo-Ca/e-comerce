@@ -1,3 +1,4 @@
+import 'package:ecomerce/modules/usuario/presenter/bem_vindo_tela/bem_vindo_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/login_tela/login_tela.dart';
 import 'package:ecomerce/services/auth_service.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class _AuthCheckState extends State<AuthCheck> {
     } else if (auth.usuario == null) {
       return const Login();
     } else {
-      return const BottomAppBar();
+      return const BemVindoTela();
     }
   }
 

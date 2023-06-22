@@ -1,8 +1,11 @@
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/usuario/presenter/login_tela/login_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/usuario_tela.dart/components/opcoes.dart';
+import 'package:ecomerce/services/auth_service.dart';
+import 'package:ecomerce/stores/formulario.store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class UsuarioTela extends StatefulWidget {
   const UsuarioTela({super.key});
@@ -12,6 +15,17 @@ class UsuarioTela extends StatefulWidget {
 }
 
 class _UsuarioTelaState extends State<UsuarioTela> {
+  final loginStore = formularioStore();
+
+   late AuthService auth;
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    auth = Provider.of<AuthService>(context);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,9 +41,7 @@ class _UsuarioTelaState extends State<UsuarioTela> {
       ),
     );
   }
-}
-
-_fotoUsuario() {
+  _fotoUsuario() {
   return Center(
     child: Padding(
       padding: const EdgeInsets.only(top: 20.0),
@@ -73,11 +85,11 @@ _cardUsuario(context) {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children:  [
-              const Padding(
-                padding: EdgeInsets.only(top: 80.0, bottom: 10),
+              Padding(
+                padding: const EdgeInsets.only(top: 80.0, bottom: 10),
                 child: Text(
-                  MensagensConstantes.USUARIO,
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                  auth.usuario!.email!,
+                  style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
               const Divider(
@@ -85,6 +97,7 @@ _cardUsuario(context) {
                 ),
                 opcoes(texto: "teste", funcao: (){}),
                 opcoes(texto: MensagensConstantes.SAIR, funcao: (){
+                  auth.logout();
                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);
                 },
               ),
@@ -126,3 +139,6 @@ PreferredSize _appBar() {
       ),
     );
 }
+
+}
+

@@ -2,9 +2,11 @@ import 'package:ecomerce/modules/core/utils/constants/imagens_constantes.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
 import 'package:ecomerce/modules/usuario/presenter/bem_vindo_tela/bem_vindo_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/registro_conta_tela/registro_conta_tela.dart';
+import 'package:ecomerce/services/auth_service.dart';
 import 'package:ecomerce/stores/formulario.store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 
 class Login extends StatefulWidget {
@@ -16,7 +18,14 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   
-  final login = formularioStore();
+  final loginStore = formularioStore();
+  late AuthService auth;
+  
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    auth = Provider.of<AuthService>(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +49,7 @@ class _LoginState extends State<Login> {
                 child: SizedBox(
                   width: 320,
                   child: TextFormField(
-                    onChanged: login.setEmail,
+                    onChanged: loginStore.setEmail,
                     enabled: true,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.person),
@@ -60,7 +69,7 @@ class _LoginState extends State<Login> {
                   width: 320,
                   child: TextFormField(
                     obscureText: true,
-                    onChanged: login.SetPassword,
+                    onChanged: loginStore.setPassword,
                     enabled: true,
                     decoration: InputDecoration(
                       icon: const Icon(Icons.lock),
@@ -83,9 +92,13 @@ class _LoginState extends State<Login> {
                 return SizedBox(
                   width: 300,
                   child: ElevatedButton(
-                      onPressed: login.isFormValid
+                      onPressed: loginStore.isFormValid
                           ? () {
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BemVindoTela()));
+                              login();
+                              if (auth.usuario != null) {
+                                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BemVindoTela()));
+                              }
+                             
                             }
                           : null,
                       child: const Text(MensagensConstantes.LOGIN)),
@@ -114,4 +127,14 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+  login() async {
+    try {
+      await context.read<AuthService>().login(loginStore.email,loginStore.password);
+    } on AuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(e.message)));
+    }
+  }
+
+ 
 }

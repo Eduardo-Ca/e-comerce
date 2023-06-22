@@ -78,11 +78,11 @@ mixin _$formularioStore on _formularioStoreBase, Store {
   }
 
   @override
-  void SetPassword(String value) {
+  void setPassword(String value) {
     final _$actionInfo = _$_formularioStoreBaseActionController.startAction(
         name: '_formularioStoreBase.SetPassword');
     try {
-      return super.SetPassword(value);
+      return super.setPassword(value);
     } finally {
       _$_formularioStoreBaseActionController.endAction(_$actionInfo);
     }
