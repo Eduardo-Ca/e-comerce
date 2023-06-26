@@ -38,7 +38,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   firebase_core: ^2.14.0
   firebase_auth: ^4.6.3
-  
+  sqflite: ^2.2.7
 
 dev_dependencies:
   build_runner: ^2.3.3

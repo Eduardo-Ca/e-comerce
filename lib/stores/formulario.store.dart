@@ -26,10 +26,10 @@ abstract class _formularioStoreBase with Store {
   void setPassword(String value) => password = value;
 
   @computed
-  bool get isPasswordValid =>  password.length > 1;
+  bool get isPasswordValid =>  RegExp(r"^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{1,30}$").hasMatch(password);
 
   @computed
-    bool get isEmailValid =>RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
+  bool get isEmailValid =>RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
 
   @computed
   bool get isFormValid => isEmailValid && isPasswordValid;

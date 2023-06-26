@@ -1,4 +1,6 @@
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
+import 'package:ecomerce/modules/data/usuariodao.dart';
+import 'package:ecomerce/modules/usuario/data/models/usuario_model.dart';
 import 'package:ecomerce/modules/usuario/presenter/login_tela/login_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/usuario_tela.dart/components/opcoes.dart';
 import 'package:ecomerce/services/auth_service.dart';
@@ -17,17 +19,26 @@ class UsuarioTela extends StatefulWidget {
 class _UsuarioTelaState extends State<UsuarioTela> {
   final loginStore = formularioStore();
 
-   late AuthService auth;
+  late AuthService auth;
+
+  List<UsuarioModel> usuario = [];
+
+  pegarUsuario()async{  
+    usuario = await UsuarioDao().find(auth.usuario!.email!);
+    setState(() {});
+  }
   
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     auth = Provider.of<AuthService>(context);
+  
   }
 
 
   @override
   Widget build(BuildContext context) {
+    pegarUsuario();
     return Scaffold(
       appBar: _appBar(),
       body: SingleChildScrollView(
@@ -88,14 +99,14 @@ _cardUsuario(context) {
               Padding(
                 padding: const EdgeInsets.only(top: 80.0, bottom: 10),
                 child: Text(
-                  auth.usuario!.email!,
+                  usuario.isEmpty? "" : usuario[0].username,
                   style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
               const Divider(
                   thickness: 1.6,
                 ),
-                opcoes(texto: "teste", funcao: (){}),
+                opcoes(texto:  MensagensConstantes.EDITAR_CONTA, funcao: (){}),
                 opcoes(texto: MensagensConstantes.SAIR, funcao: (){
                   auth.logout();
                   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);

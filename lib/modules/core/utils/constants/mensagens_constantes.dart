@@ -33,4 +33,5 @@ class MensagensConstantes {
   static const String HOMEM = "Male";
   static const String MULHER = "Female";
   static const String CAMPO_VAZIO = "this field cannot be empty";
+  static const String EDITAR_CONTA = "edit account";
 }

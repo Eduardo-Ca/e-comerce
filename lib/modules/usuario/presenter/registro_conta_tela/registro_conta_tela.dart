@@ -1,5 +1,6 @@
 import 'package:ecomerce/modules/core/utils/constants/imagens_constantes.dart';
 import 'package:ecomerce/modules/core/utils/constants/mensagens_constantes.dart';
+import 'package:ecomerce/modules/data/usuariodao.dart';
 import 'package:ecomerce/modules/usuario/data/models/usuario_model.dart';
 import 'package:ecomerce/modules/usuario/presenter/bem_vindo_tela/bem_vindo_tela.dart';
 import 'package:ecomerce/modules/usuario/presenter/registro_conta_tela/components/campo_de_registro.dart';
@@ -58,8 +59,8 @@ class _RegistroTelaState extends State<RegistroTela> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CampoDeRegistro(hint: MensagensConstantes.USUARIO_NOME,controller: usernameController,),
-                CampoDeRegistro(hint: MensagensConstantes.EMAIL,controller: emailController,),
-                CampoDeRegistro(hint: MensagensConstantes.SENHA,controller:senhaController,),
+                CampoDeRegistro(hint: MensagensConstantes.EMAIL,controller: emailController,onChanged: loginStore.setEmail,),
+                CampoDeRegistro(hint: MensagensConstantes.SENHA,controller:senhaController,onChanged: loginStore.setPassword,),
                 _formData(), 
                 _genero(),
                 _botaoConfirmar(),
@@ -78,17 +79,25 @@ class _RegistroTelaState extends State<RegistroTela> {
       child: SizedBox(
         width: 300,
             child: ElevatedButton(onPressed: (){
-                if (_formkey.currentState!.validate()) {
-                  loginStore.usuario = UsuarioModel(id: 0,username: usernameController.text,email: emailController.text,senha: senhaController.text,dataNascimento: dataController.text,genero: chip1Selecionado? "Male":"Female");
-                  registrar(loginStore.usuario);
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BemVindoTela()));
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('User: ${loginStore.usuario.username} created!',style: const TextStyle(fontSize: 18),),
-                   ),
-                );
-           
-              }
+                if(loginStore.isFormValid){
+                    if (_formkey.currentState!.validate()) {
+                      loginStore.usuario = UsuarioModel(id: 0,username: usernameController.text,email: emailController.text,senha: senhaController.text,dataNascimento: dataController.text,genero: chip1Selecionado? "Male":"Female");
+                      registrar(loginStore.usuario);
+                       UsuarioDao().save(loginStore.usuario);
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BemVindoTela()));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('User: ${loginStore.usuario.username} created!',style: const TextStyle(fontSize: 18),),
+                        ),
+                      );    
+                  }
+                }else{
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('The password must contain numbers and at least one uppercase letter.\nthe email must follow the example "example@gmail.com"',style: TextStyle(fontSize: 18),),
+                        ),
+                      );    
+                  }
             }, child: const Text(MensagensConstantes.REGISTRAR,style: TextStyle(fontSize: 20,color: Colors.white),
           ),
         ),

@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class CampoDeRegistro extends StatefulWidget {
   final String hint;
   final TextEditingController controller;
-  const CampoDeRegistro({super.key,required this.hint,required this.controller});
+  final void Function(String)? onChanged;
+  const CampoDeRegistro({super.key,required this.hint,required this.controller,this.onChanged});
 
 
   @override
@@ -34,6 +35,7 @@ class _CampoDeRegistroState extends State<CampoDeRegistro> {
             return null;
           },
           controller:widget.controller,
+          onChanged: widget.onChanged,
           enabled: true,
           decoration: InputDecoration(
             hintText: widget.hint,
