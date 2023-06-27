@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -17,10 +16,9 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  
-  final loginStore = formularioStore();
+  final loginStore = FormularioStore();
   late AuthService auth;
-  
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -39,20 +37,20 @@ class _LoginState extends State<Login> {
             children: [
               SizedBox(
                 width: larguraTela,
-                 child: Image.asset(
+                child: Image.asset(
                   ImagensConstantes.LOGIN_FUNDO,
                   fit: BoxFit.fill,
-                           ),
-               ),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
-                  width: 320,
+                  width: 340,
                   child: TextFormField(
                     onChanged: loginStore.setEmail,
                     enabled: true,
                     decoration: InputDecoration(
-                      icon: const Icon(Icons.person),
+                      icon: const IconButton(onPressed:null ,icon: Icon(Icons.person)),
                       hintText: MensagensConstantes.DIGITE_SEU_EMAIL,
                       labelText: MensagensConstantes.EMAIL,
                       border: OutlineInputBorder(
@@ -66,28 +64,37 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: SizedBox(
-                  width: 320,
-                  child: TextFormField(
-                    obscureText: true,
-                    onChanged: loginStore.setPassword,
-                    enabled: true,
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.lock),
-                      hintText: MensagensConstantes.DIGITE_SUA_SENHA,
-                      labelText: MensagensConstantes.SENHA,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(25.0),
-                        borderSide: const BorderSide(),
+                  width: 340,
+                  child: Observer(builder: (_) {
+                    return TextFormField(
+                      obscureText: loginStore.senhaVisivel ? false : true,
+                      onChanged: loginStore.setPassword,
+                      enabled: true,
+                      decoration: InputDecoration(
+                        icon: IconButton(
+                            onPressed: () => loginStore
+                                .setSenhaVisivel(!loginStore.senhaVisivel),
+                            icon: Icon(loginStore.senhaVisivel
+                                ? Icons.visibility_off
+                                : Icons.remove_red_eye)),
+                        hintText: MensagensConstantes.DIGITE_SUA_SENHA,
+                        labelText: MensagensConstantes.SENHA,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          borderSide: const BorderSide(),
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  }),
                 ),
               ),
               const Padding(
-                padding: EdgeInsets.only(bottom:7.2),
-                child: Text(MensagensConstantes.ESQUECEU_SUA_SENHA,style: TextStyle(color: Colors.orange),),
+                padding: EdgeInsets.only(bottom: 7.2),
+                child: Text(
+                  MensagensConstantes.ESQUECEU_SUA_SENHA,
+                  style: TextStyle(color: Colors.orange),
+                ),
               ),
-        
               Observer(builder: (_) {
                 return SizedBox(
                   width: 300,
@@ -96,31 +103,31 @@ class _LoginState extends State<Login> {
                           ? () {
                               login();
                               if (auth.usuario != null) {
-                                   Navigator.of(context).push(MaterialPageRoute(builder: (context) => const BemVindoTela()));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BemVindoTela()));
                               }
-                             
                             }
                           : null,
                       child: const Text(MensagensConstantes.LOGIN)),
                 );
               }),
               SizedBox(
-                  width: 300,
-                 child: ElevatedButton(
-                      onPressed: () {
-                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => const RegistroTela()));
-                      } ,
-                      child: const Text(MensagensConstantes.REGISTRAR)),
-               ),
-        
+                width: 300,
+                child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const RegistroTela()));
+                    },
+                    child: const Text(MensagensConstantes.REGISTRAR)),
+              ),
               SizedBox(
                 width: larguraTela,
-                 child: Image.asset(
+                child: Image.asset(
                   ImagensConstantes.LOGIN_FUNDO_BAIXO,
                   fit: BoxFit.fill,
-                           ),
-               ),
-           
+                ),
+              ),
             ],
           ),
         ),
@@ -130,11 +137,12 @@ class _LoginState extends State<Login> {
 
   login() async {
     try {
-      await context.read<AuthService>().login(loginStore.email,loginStore.password);
+      await context
+          .read<AuthService>()
+          .login(loginStore.email, loginStore.password);
     } on AuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content:Text(e.message)));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(e.message)));
     }
   }
-
- 
 }

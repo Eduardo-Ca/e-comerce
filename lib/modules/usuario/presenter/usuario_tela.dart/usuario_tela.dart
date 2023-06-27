@@ -17,7 +17,7 @@ class UsuarioTela extends StatefulWidget {
 }
 
 class _UsuarioTelaState extends State<UsuarioTela> {
-  final loginStore = formularioStore();
+  final loginStore = FormularioStore();
 
   late AuthService auth;
 
@@ -103,14 +103,20 @@ _cardUsuario(context) {
                   style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ),
+              Text(
+                usuario.isEmpty? "" : "email: ${usuario[0].email}",
+                style: const TextStyle(fontSize: 27,),
+              ),
+              const SizedBox(height: 20,),
               const Divider(
                   thickness: 1.6,
                 ),
-                opcoes(texto:  MensagensConstantes.EDITAR_CONTA, funcao: (){}),
-                opcoes(texto: MensagensConstantes.SAIR, funcao: (){
-                  auth.logout();
-                  Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);
-                },
+           
+              opcoes(texto: MensagensConstantes.EDITAR_CONTA, funcao: (){}),
+              opcoes(texto: MensagensConstantes.SAIR, funcao: (){
+                auth.logout();
+                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => const Login()), (Route<dynamic> route) => false);
+              },
               ),
             ],
           ),

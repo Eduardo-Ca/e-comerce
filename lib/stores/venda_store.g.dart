@@ -25,10 +25,79 @@ mixin _$VendaStore on _VendaStore, Store {
     });
   }
 
+  late final _$totalAtom = Atom(name: '_VendaStore.total', context: context);
+
+  @override
+  int get total {
+    _$totalAtom.reportRead();
+    return super.total;
+  }
+
+  @override
+  set total(int value) {
+    _$totalAtom.reportWrite(value, super.total, () {
+      super.total = value;
+    });
+  }
+
+  late final _$produtosAtom =
+      Atom(name: '_VendaStore.produtos', context: context);
+
+  @override
+  ObservableList<ProductsModel> get produtos {
+    _$produtosAtom.reportRead();
+    return super.produtos;
+  }
+
+  @override
+  set produtos(ObservableList<ProductsModel> value) {
+    _$produtosAtom.reportWrite(value, super.produtos, () {
+      super.produtos = value;
+    });
+  }
+
+  late final _$_VendaStoreActionController =
+      ActionController(name: '_VendaStore', context: context);
+
+  @override
+  void salvarProdutosCarrinho({required ProductsModel produto}) {
+    final _$actionInfo = _$_VendaStoreActionController.startAction(
+        name: '_VendaStore.salvarProdutosCarrinho');
+    try {
+      return super.salvarProdutosCarrinho(produto: produto);
+    } finally {
+      _$_VendaStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removerProdutosCarrinho({required ProductsModel produto}) {
+    final _$actionInfo = _$_VendaStoreActionController.startAction(
+        name: '_VendaStore.removerProdutosCarrinho');
+    try {
+      return super.removerProdutosCarrinho(produto: produto);
+    } finally {
+      _$_VendaStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void calcularTotal() {
+    final _$actionInfo = _$_VendaStoreActionController.startAction(
+        name: '_VendaStore.calcularTotal');
+    try {
+      return super.calcularTotal();
+    } finally {
+      _$_VendaStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
-carrinho: ${carrinho}
+carrinho: ${carrinho},
+total: ${total},
+produtos: ${produtos}
     ''';
   }
 }

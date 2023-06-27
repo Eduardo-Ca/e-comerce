@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class Skeleton extends StatefulWidget {
-  double heigth,width;
-   Skeleton({
+  final double heigth,width;
+   const Skeleton({
     super.key,
     required this.heigth,
     required this.width

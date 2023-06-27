@@ -2,8 +2,8 @@ import 'package:ecomerce/modules/produtos/data/models/produto_model.dart';
 import 'package:flutter/material.dart';
 
 class CardCarrinho extends StatefulWidget {
-  ProductsModel produto;
-  CardCarrinho({super.key,required this.produto});
+  final ProductsModel produto;
+  const CardCarrinho({super.key,required this.produto});
 
   @override
   State<CardCarrinho> createState() => _CardCarrinhoState();

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CategoriaCard extends StatelessWidget {
-  String categoria;
-  String selecionado;
+  final String categoria;
+  final String selecionado;
 
-  CategoriaCard({super.key,required this.categoria,required this.selecionado});
+  const CategoriaCard({super.key,required this.categoria,required this.selecionado});
 
   @override
   Widget build(BuildContext context) {

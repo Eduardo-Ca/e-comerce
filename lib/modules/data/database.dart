@@ -1,7 +1,7 @@
 
-// ignore: depend_on_referenced_packages
 import 'package:ecomerce/modules/core/utils/constants/data_base_contants.dart';
 import 'package:ecomerce/modules/data/usuariodao.dart';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 

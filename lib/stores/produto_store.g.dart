@@ -25,6 +25,23 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
     });
   }
 
+  late final _$listaProdutosFavoritosAtom =
+      Atom(name: '_ProdutoStore.listaProdutosFavoritos', context: context);
+
+  @override
+  ObservableList<ProductsModel> get listaProdutosFavoritos {
+    _$listaProdutosFavoritosAtom.reportRead();
+    return super.listaProdutosFavoritos;
+  }
+
+  @override
+  set listaProdutosFavoritos(ObservableList<ProductsModel> value) {
+    _$listaProdutosFavoritosAtom
+        .reportWrite(value, super.listaProdutosFavoritos, () {
+      super.listaProdutosFavoritos = value;
+    });
+  }
+
   late final _$listaProdutosAtom =
       Atom(name: '_ProdutoStore.listaProdutos', context: context);
 
@@ -191,10 +208,36 @@ mixin _$ProdutoStore on _ProdutoStore, Store {
     return _$obterCategoriasAsyncAction.run(() => super.obterCategorias());
   }
 
+  late final _$_ProdutoStoreActionController =
+      ActionController(name: '_ProdutoStore', context: context);
+
+  @override
+  void salvarFavorito(ProductsModel favorito) {
+    final _$actionInfo = _$_ProdutoStoreActionController.startAction(
+        name: '_ProdutoStore.salvarFavorito');
+    try {
+      return super.salvarFavorito(favorito);
+    } finally {
+      _$_ProdutoStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void removerFavorito(ProductsModel favorito) {
+    final _$actionInfo = _$_ProdutoStoreActionController.startAction(
+        name: '_ProdutoStore.removerFavorito');
+    try {
+      return super.removerFavorito(favorito);
+    } finally {
+      _$_ProdutoStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 quantidade: ${quantidade},
+listaProdutosFavoritos: ${listaProdutosFavoritos},
 listaProdutos: ${listaProdutos},
 produtosPendentesCarregando: ${produtosPendentesCarregando},
 produtosPendentesCarregado: ${produtosPendentesCarregado},

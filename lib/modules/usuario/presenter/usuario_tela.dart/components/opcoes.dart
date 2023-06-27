@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 
 class opcoes extends StatefulWidget {
-  String texto;
-  void Function()? funcao;
-   opcoes({super.key, required this.texto,required this.funcao});
+  final String texto;
+  final void Function()? funcao;
+  const opcoes({super.key, required this.texto,required this.funcao});
 
   @override
   State<opcoes> createState() => _opcoesState();

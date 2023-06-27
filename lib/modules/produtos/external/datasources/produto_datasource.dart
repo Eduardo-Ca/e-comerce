@@ -53,8 +53,7 @@ class ProdutoDatasource implements IProdutoDatasource {
     }
   }
 
-   @override
-  Future<dynamic> salvarProdutoCarrinho({required int id,required int quantidade}) async {
+   Future<dynamic> salvarProdutoCarrinho({required int id,required int quantidade}) async {
 
     var idJson = jsonEncode(id);
     var quantidadeJson = jsonEncode(quantidade);

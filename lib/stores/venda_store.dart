@@ -21,14 +21,14 @@ abstract class _VendaStore with Store {
   ObservableList<ProductsModel> produtos = ObservableList<ProductsModel>.of([]);
 
   @action
-  void salvarProdutosCarrinho({required ProductsModel produto})async{
+  void salvarProdutosCarrinho({required ProductsModel produto}){
     produtos.add(produto);
     carrinho.products = produtos;
 
   }
 
   @action
-  void removerProdutosCarrinho({required ProductsModel produto})async{
+  void removerProdutosCarrinho({required ProductsModel produto}){
     produtos.remove(produto);
     carrinho.products = produtos;
     calcularTotal();

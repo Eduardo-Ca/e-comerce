@@ -8,7 +8,7 @@ part of 'formulario.store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$formularioStore on _formularioStoreBase, Store {
+mixin _$formularioStore on _FormularioStoreBase, Store {
   Computed<bool>? _$isPasswordValidComputed;
 
   @override
@@ -31,6 +31,22 @@ mixin _$formularioStore on _formularioStoreBase, Store {
               name: '_formularioStoreBase.isFormValid'))
           .value;
 
+  late final _$usuarioAtom =
+      Atom(name: '_formularioStoreBase.usuario', context: context);
+
+  @override
+  UsuarioModel get usuario {
+    _$usuarioAtom.reportRead();
+    return super.usuario;
+  }
+
+  @override
+  set usuario(UsuarioModel value) {
+    _$usuarioAtom.reportWrite(value, super.usuario, () {
+      super.usuario = value;
+    });
+  }
+
   late final _$emailAtom =
       Atom(name: '_formularioStoreBase.email', context: context);
 
@@ -44,6 +60,22 @@ mixin _$formularioStore on _formularioStoreBase, Store {
   set email(String value) {
     _$emailAtom.reportWrite(value, super.email, () {
       super.email = value;
+    });
+  }
+
+  late final _$senhaVisivelAtom =
+      Atom(name: '_formularioStoreBase.senhaVisivel', context: context);
+
+  @override
+  bool get senhaVisivel {
+    _$senhaVisivelAtom.reportRead();
+    return super.senhaVisivel;
+  }
+
+  @override
+  set senhaVisivel(bool value) {
+    _$senhaVisivelAtom.reportWrite(value, super.senhaVisivel, () {
+      super.senhaVisivel = value;
     });
   }
 
@@ -67,6 +99,17 @@ mixin _$formularioStore on _formularioStoreBase, Store {
       ActionController(name: '_formularioStoreBase', context: context);
 
   @override
+  void setSenhaVisivel(bool value) {
+    final _$actionInfo = _$_formularioStoreBaseActionController.startAction(
+        name: '_formularioStoreBase.setSenhaVisivel');
+    try {
+      return super.setSenhaVisivel(value);
+    } finally {
+      _$_formularioStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setEmail(String value) {
     final _$actionInfo = _$_formularioStoreBaseActionController.startAction(
         name: '_formularioStoreBase.setEmail');
@@ -80,7 +123,7 @@ mixin _$formularioStore on _formularioStoreBase, Store {
   @override
   void setPassword(String value) {
     final _$actionInfo = _$_formularioStoreBaseActionController.startAction(
-        name: '_formularioStoreBase.SetPassword');
+        name: '_formularioStoreBase.setPassword');
     try {
       return super.setPassword(value);
     } finally {
@@ -91,7 +134,9 @@ mixin _$formularioStore on _formularioStoreBase, Store {
   @override
   String toString() {
     return '''
+usuario: ${usuario},
 email: ${email},
+senhaVisivel: ${senhaVisivel},
 password: ${password},
 isPasswordValid: ${isPasswordValid},
 isEmailValid: ${isEmailValid},

@@ -6,15 +6,22 @@ part 'formulario.store.g.dart';
 //flutter pub run build_runner build
 //flutter pub run build_runner build --delete-conflicting-outputs
 // ignore: library_private_types_in_public_api
-class formularioStore = _formularioStoreBase with _$formularioStore;
+class FormularioStore = _FormularioStoreBase with _$formularioStore;
 
-abstract class _formularioStoreBase with Store {
+abstract class _FormularioStoreBase with Store {
 
   @observable
   UsuarioModel usuario = UsuarioModel(); 
 
   @observable
   String email = "";
+
+  @observable
+  bool senhaVisivel = false;
+
+  
+  @action
+  void setSenhaVisivel(bool value) => senhaVisivel = value;
 
   @action
   void setEmail(String value) => email = value;

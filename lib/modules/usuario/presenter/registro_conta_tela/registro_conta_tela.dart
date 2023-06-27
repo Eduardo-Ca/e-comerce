@@ -25,7 +25,7 @@ class _RegistroTelaState extends State<RegistroTela> {
   
 
   final _formkey = GlobalKey<FormState>();
-  final loginStore = formularioStore();
+  final loginStore = FormularioStore();
   bool chip1Selecionado = true;
   bool chip2Selecionado = false;
 
